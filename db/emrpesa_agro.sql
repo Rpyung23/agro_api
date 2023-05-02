@@ -114,7 +114,10 @@ alter table gastos_vehicular add constraint rel_gasto_vehicular_tipo_gasto forei
 /***** SELECT ***/
 
 select E.CodeEmpresa,E.nombre,E.logo from empresa as E where E.CodeEmpresa = '0604666982001';
-select * from usuario_admin;
+select UA.FK_CodeEmpresa,UA.CodigoUsuarioAdmin,UA.NombreApellidosAdmin from usuario_admin as UA
+       where UA.CodigoUsuarioAdmin = 'admin01@gmail.com' and UA.ContraseniaUsuarioAdmin = '12345678' and UA.EstadoUsuarioAdmin = 1;
 /**INSERT  Q SE DEBEN LLENAR POR DEFECTO**/
 insert into empresa(CodeEmpresa, nombre, direc, logo, telefono1, telefono2, email)
             values ('0604666982001','VIRTUALCODE7 S.A.S','','','0993706012','','virtualcode7ecuador@gmail.com');
+insert into usuario_admin(CodigoUsuarioAdmin, FK_CodeEmpresa, ContraseniaUsuarioAdmin, NombreApellidosAdmin)
+            VALUES ('admin01@gmail.com','0604666982001','12345678','Nelson Patricio Yunga Guaman');
