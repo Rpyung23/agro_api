@@ -1,10 +1,10 @@
-drop database agro;
+drop database if exists agro;
 create database if not exists agro;
 use agro;
 create table if not exists empresa(CodeEmpresa varchar(50) primary key not null comment 'ruc dni empresa',nombre varchar(250) not null,
                                    direc varchar(250),logo longtext,telefono1 varchar(50),
                                    telefono2 varchar(50), email varchar(50));
-create table if not exists sucursales(Code_Sucursal varchar(50) primary key not null,FK_CodeEmpresa varchar(50) not null,
+create table if not exists sucursales(Code_Sucursal int primary key auto_increment not null,FK_CodeEmpresa varchar(50) not null,
                                       NombreSucursal varchar(250) not null,DirSucursal longtext,
                                       TelefonoSucursal varchar(50));
 alter table sucursales add constraint rel_empresa_sucursales foreign key sucursales(FK_CodeEmpresa) references empresa(CodeEmpresa)
@@ -17,7 +17,7 @@ create table if not exists empleados(CodigoEmpleado varchar(50) primary key comm
 create table if not exists estado_empleados(IdEstado int primary key auto_increment,DetalleEstado varchar(250) not null);
 create table if not exists empleado_sucursal(CodeEmpleadoSucursales int primary key auto_increment,
                                  FK_CodigoEmpleado varchar(50) not null,
-                                 FK_CodigoSucursal varchar(50) not null,
+                                 FK_CodigoSucursal int not null,
                                  FK_EstadoEmpleado int not null,
                                  FechaModificacion datetime default now());
 alter table  empleado_sucursal add constraint rel_empleado_sucursal_codigo_empleado
@@ -27,7 +27,7 @@ alter table empleado_sucursal add constraint rel_empleado_sucursal_codigo_sucurs
 alter table empleado_sucursal add constraint rel_empleado_sucursal_estado_empleado
       foreign key empleado_sucursal(FK_EstadoEmpleado) references estado_empleados(IdEstado);
 create table asistencia_empleado(CodeAsistencia int primary key auto_increment,FK_CodigoEmpleado varchar(50) not null,
-                                 FK_Code_Sucursal varchar(50) not null,FechaAsistencia datetime default now(),
+                                 FK_Code_Sucursal int not null,FechaAsistencia datetime default now(),
                                  FaltaAsistencia int default 0 comment 'Minutos de atrasos o adelanto');
 alter table asistencia_empleado add constraint rel_asistencia_empleado_empleado foreign key asistencia_empleado(FK_CodigoEmpleado)
                                 references empleados(CodigoEmpleado);
@@ -53,7 +53,7 @@ create table usuario_admin(CodigoUsuarioAdmin varchar(50) not null,
                            primary key (CodigoUsuarioAdmin,FK_CodeEmpresa));
 create table usuario_admin_sucursal(CodeUserAdminSucursal int primary key auto_increment,
                                     FK_CodigoUsuarioAdmin varchar(50) not null,
-                                    FK_Code_Sucursal varchar(50) not null,
+                                    FK_Code_Sucursal int not null,
                                     FechaAsignacion datetime default now());
 alter table usuario_admin_sucursal add constraint rel_usuario_admin_sucursal_usuario_admin foreign key usuario_admin_sucursal(FK_CodigoUsuarioAdmin)
                                    references usuario_admin(CodigoUsuarioAdmin);
@@ -79,7 +79,7 @@ alter table gastos add constraint rel_gatos_proveedor foreign key gastos(FK_Codi
 
 create table if not exists ingresos(CodigoIngreso int primary key auto_increment,FechaCreacionIngreso datetime default now(),
                       FechaIngresoIngreso datetime comment 'cuando se registro dicho ingreso',NombreIngreso varchar(250) not null,
-                      FK_Code_Sucursal varchar(50) not null,
+                      FK_Code_Sucursal int not null,
                       FK_CodeCliente varchar(50) not null,CantidadIngreso decimal(10,2) default 0.00,
                       NotaIngreso longtext,FotoIngreso longtext,EstadoIngreso smallint(2) default 1) comment '0 eliminado 1 activo';
 alter table ingresos add constraint rel_ingresos_cliente foreign key ingresos(FK_CodeCliente) references cliente(CodeCliente);
@@ -113,11 +113,67 @@ alter table gastos_vehicular add constraint rel_gasto_vehicular_tipo_gasto forei
 
 /***** SELECT ***/
 
-select E.CodeEmpresa,E.nombre,E.logo from empresa as E where E.CodeEmpresa = '0604666982001';
-select UA.FK_CodeEmpresa,UA.CodigoUsuarioAdmin,UA.NombreApellidosAdmin from usuario_admin as UA
-       where UA.CodigoUsuarioAdmin = 'admin01@gmail.com' and UA.ContraseniaUsuarioAdmin = '12345678' and UA.EstadoUsuarioAdmin = 1;
+select AUS.FK_Code_Sucursal,S.NombreSucursal from usuario_admin as UA
+       left join usuario_admin_sucursal as AUS on  UA.CodigoUsuarioAdmin = AUS.FK_CodigoUsuarioAdmin
+       left join sucursales as S on AUS.FK_Code_Sucursal = S.Code_Sucursal
+       where UA.CodigoUsuarioAdmin = 'admin01@gmail.com' and UA.FK_CodeEmpresa = '0604666982001';
+
+
 /**INSERT  Q SE DEBEN LLENAR POR DEFECTO**/
 insert into empresa(CodeEmpresa, nombre, direc, logo, telefono1, telefono2, email)
             values ('0604666982001','VIRTUALCODE7 S.A.S','','','0993706012','','virtualcode7ecuador@gmail.com');
 insert into usuario_admin(CodigoUsuarioAdmin, FK_CodeEmpresa, ContraseniaUsuarioAdmin, NombreApellidosAdmin)
             VALUES ('admin01@gmail.com','0604666982001','12345678','Nelson Patricio Yunga Guaman');
+insert into sucursales(FK_CodeEmpresa, NombreSucursal, DirSucursal, TelefonoSucursal)
+             VALUES ('0604666982001','Sucursal 001','Guadalajara - Mexico','1111111111');
+insert into sucursales( FK_CodeEmpresa, NombreSucursal, DirSucursal, TelefonoSucursal)
+             VALUES ('0604666982001','Sucursal 002','Guadalajara - Mexico','1111111111');
+insert into sucursales(FK_CodeEmpresa, NombreSucursal, DirSucursal, TelefonoSucursal)
+             VALUES ('0604666982001','Sucursal 003','Guadalajara - Mexico','1111111111');
+insert into sucursales(FK_CodeEmpresa, NombreSucursal, DirSucursal, TelefonoSucursal)
+             VALUES ('0604666982001','Sucursal 004','Guadalajara - Mexico','1111111111');
+insert into usuario_admin_sucursal(FK_CodigoUsuarioAdmin, FK_Code_Sucursal,
+                                   FechaAsignacion) VALUES ('admin01@gmail.com',1,now());
+insert into usuario_admin_sucursal(FK_CodigoUsuarioAdmin, FK_Code_Sucursal,
+                                   FechaAsignacion) VALUES ('admin01@gmail.com',2,now());
+insert into usuario_admin_sucursal(FK_CodigoUsuarioAdmin, FK_Code_Sucursal,
+                                   FechaAsignacion) VALUES ('admin01@gmail.com',3,now());
+insert into usuario_admin_sucursal(FK_CodigoUsuarioAdmin, FK_Code_Sucursal,
+                                   FechaAsignacion) VALUES ('admin01@gmail.com',4,now());
+
+-- procedimientos para por defecto
+
+create procedure registerSucursalUserAdmin(in empleado_code_ varchar(50),in empresa_ varchar(50),in nombre_ varchar(50),
+                  in direccion_ varchar(50),in telefono_ varchar(50))
+begin
+
+    declare idSucursal int default 0;
+
+    DECLARE exit handler for sqlexception
+      BEGIN
+        -- ERROR
+        rollback;
+        select 400 as status_code;
+      END;
+
+    DECLARE exit handler for sqlwarning
+      BEGIN
+        -- WARNING
+        rollback;
+        select 400 as status_code;
+      END;
+
+
+
+    START TRANSACTION;
+    insert into sucursales(FK_CodeEmpresa, NombreSucursal, DirSucursal, TelefonoSucursal)
+                VALUES (empresa_,nombre_,direccion_,telefono_);
+    set idSucursal = last_insert_id();
+    insert into usuario_admin_sucursal(FK_CodigoUsuarioAdmin, FK_Code_Sucursal, FechaAsignacion)
+                VALUES (empleado_code_,idSucursal,now());
+    select 200 as status_code;
+    COMMIT;
+end;
+
+call registerSucursalUserAdmin('admin01@gmail.com','0604666982001','SUCURSAL 100','','');
+

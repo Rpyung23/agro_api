@@ -12,10 +12,12 @@ app.use(cors())
 /**APIS**/
 const empresa  = require("./view/empresa")
 const usuario  = require("./view/usuario")
+const sucursal  = require("./view/sucursal")
 /********/
 
 app.use(empresa)
 app.use(usuario)
+app.use(sucursal)
 
 app.listen(process.env.PORT,()=>{
     console.log("SERVER LISTEN "+process.env.PORT)
