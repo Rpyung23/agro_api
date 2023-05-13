@@ -30,7 +30,7 @@ class Jwt {
             }catch (e) {
                 return res.status(401).json({
                     status_code: 401,
-                    msg: "Token no es válido: " + err,
+                    msg: "Token no es válido: " + e,
                     data: null,
                 })
             }

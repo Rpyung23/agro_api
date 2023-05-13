@@ -38,8 +38,9 @@ create table if not exists proveedor(CodigoProveedor varchar(50) primary key com
                         TelefonoProveedor varchar(50),EmailProveedor varchar(50) not null ,
                         FechaCreacionProveedor datetime default now(),
                         CuentaBancaria varchar(250),
+                        AtienddeProveedor varchar(250),
                         EstadoProveedor smallint(2) default 1 comment '0 inactivo 1 activo');
-create table if not exists empresa_proveedor(CodeEmpresaProveedor int primary key,FK_CodeEmpresa varchar(50) not null,
+create table if not exists empresa_proveedor(CodeEmpresaProveedor int primary key auto_increment,FK_CodeEmpresa varchar(50) not null,
                                              FK_CodeProveedor varchar(50) not null);
 alter table empresa_proveedor add constraint rel_empresa_proveedor_proveedor foreign key empresa_proveedor(FK_CodeProveedor)
                               references proveedor(CodigoProveedor);
@@ -112,6 +113,10 @@ alter table gastos_vehicular add constraint rel_gasto_vehicular_tipo_gasto forei
 /*************************************************************************************************************************/
 
 /***** SELECT ***/
+select P.* from proveedor as P inner join empresa_proveedor as EP on P.CodigoProveedor = EP.FK_CodeProveedor and EP.FK_CodeEmpresa = '0604666982001';
+
+
+
 
 select AUS.FK_Code_Sucursal,S.NombreSucursal from usuario_admin as UA
        left join usuario_admin_sucursal as AUS on  UA.CodigoUsuarioAdmin = AUS.FK_CodigoUsuarioAdmin
@@ -140,6 +145,20 @@ insert into usuario_admin_sucursal(FK_CodigoUsuarioAdmin, FK_Code_Sucursal,
                                    FechaAsignacion) VALUES ('admin01@gmail.com',3,now());
 insert into usuario_admin_sucursal(FK_CodigoUsuarioAdmin, FK_Code_Sucursal,
                                    FechaAsignacion) VALUES ('admin01@gmail.com',4,now());
+
+insert into proveedor(CodigoProveedor, NombresApellidosProveedor, DirProveedor, TelefonoProveedor,
+            EmailProveedor, CuentaBancaria)
+            VALUES (unix_timestamp(),'PROVEEDOR 001','ECUADOR','078945613','proveedor01@gmail.com','11111111');
+insert into proveedor(CodigoProveedor, NombresApellidosProveedor, DirProveedor, TelefonoProveedor,
+            EmailProveedor, CuentaBancaria)
+            VALUES (unix_timestamp(),'PROVEEDOR 002','ECUADOR','078945613','proveedor01@gmail.com','11111111');
+insert into proveedor(CodigoProveedor, NombresApellidosProveedor, DirProveedor, TelefonoProveedor,
+            EmailProveedor, CuentaBancaria)
+            VALUES (unix_timestamp(),'PROVEEDOR 003','ECUADOR','078945613','proveedor01@gmail.com','11111111');
+insert into proveedor(CodigoProveedor, NombresApellidosProveedor, DirProveedor, TelefonoProveedor,
+            EmailProveedor, CuentaBancaria)
+            VALUES (unix_timestamp(),'PROVEEDOR 004','ECUADOR','078945613','proveedor01@gmail.com','11111111');
+
 
 -- procedimientos para por defecto
 
@@ -174,6 +193,41 @@ begin
     select 200 as status_code;
     COMMIT;
 end;
+create procedure registerProveedor(in empresa varchar(50),in NombresApellidosProveedor_ varchar(250),
+                                   in DirProveedor_ varchar(250), in TelefonoProveedor_ varchar(50),
+                                 in EmailProveedor_ varchar(50),in CuentaBancaria_ varchar(250),
+                                 in AtienddeProveedor_ varchar(250))
+begin
 
+    declare idProveedor int default unix_timestamp();
+
+    DECLARE exit handler for sqlexception
+      BEGIN
+        -- ERROR
+        rollback;
+        select 400 as status_code;
+      END;
+
+    DECLARE exit handler for sqlwarning
+      BEGIN
+        -- WARNING
+        rollback;
+        select 400 as status_code;
+      END;
+
+
+
+    START TRANSACTION;
+    set idProveedor = (select unix_timestamp());
+    insert into proveedor(CodigoProveedor, NombresApellidosProveedor, DirProveedor, TelefonoProveedor, EmailProveedor, CuentaBancaria, AtienddeProveedor)
+                VALUES (idProveedor,NombresApellidosProveedor_,DirProveedor_,TelefonoProveedor_,EmailProveedor_,CuentaBancaria_,AtienddeProveedor_);
+    insert into empresa_proveedor(FK_CodeEmpresa, FK_CodeProveedor)
+                VALUES (empresa,idProveedor);
+    select 200 as status_code;
+    COMMIT;
+end;
+
+
+call registerProveedor('0604666982001','PRO',
+    '4pjjjj','44444','dsasd','6546546','asd');
 call registerSucursalUserAdmin('admin01@gmail.com','0604666982001','SUCURSAL 100','','');
-
