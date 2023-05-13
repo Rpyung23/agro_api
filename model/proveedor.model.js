@@ -2,10 +2,10 @@ const connDB = require("../config/conn")
 class ProveedorModel
 {
     static async insertProveedoresEmpresaModel(empresa,NombresApellidosProveedor, DirProveedor, TelefonoProveedor,
-                                 EmailProveedor, CuentaBancaria, AtienddeProveedor)
+                                 EmailProveedor, CuentaBancaria, AtienddeProveedor,TelefonoEmpresa,DomicilioGoogle)
     {
         try {
-            var sql = "call registerProveedor('"+empresa+"','"+NombresApellidosProveedor+"','"+DirProveedor+"','"+TelefonoProveedor+"','"+EmailProveedor+"','"+CuentaBancaria+"','"+AtienddeProveedor+"')"
+            var sql = "call registerProveedor('"+empresa+"','"+NombresApellidosProveedor+"','"+DirProveedor+"','"+TelefonoProveedor+"','"+EmailProveedor+"','"+CuentaBancaria+"','"+AtienddeProveedor+"','"+TelefonoEmpresa+"','"+DomicilioGoogle+"')"
             var conn = await connDB().promise()
             var datos = await conn.query(sql)
             await conn.end()

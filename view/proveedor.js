@@ -11,7 +11,7 @@ app.post('/create_proveedor',JWT.veriJwt,async function (req, res)
 
         var result = await ProveedorController.registerProveedorEmpresaController(req.body.decoded.empresa,
             req.body.NombresApellidosProveedor,req.body.DirProveedor,req.body.TelefonoProveedor,req.body.EmailProveedor,
-            req.body.CuentaBancaria,req.body.AtienddeProveedor)
+            req.body.CuentaBancaria,req.body.AtienddeProveedor,req.body.TelefonoEmpresa,req.body.DomicilioGoogle)
         res.status(200).json({
             status_code:result,
             msm: result == 200 ? 'Sucursal agregada con éxito' : 'No se pudo registrar',
