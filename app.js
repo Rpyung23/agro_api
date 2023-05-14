@@ -14,13 +14,14 @@ const empresa  = require("./view/empresa")
 const usuario  = require("./view/usuario")
 const sucursal  = require("./view/sucursal")
 const proveedor  = require("./view/proveedor")
+const panel  = require("./view/panel")
 /********/
 
 app.use(empresa)
 app.use(usuario)
 app.use(sucursal)
 app.use(proveedor)
-
+app.use(panel)
 app.listen(process.env.PORT,()=>{
     console.log("SERVER LISTEN "+process.env.PORT)
 })

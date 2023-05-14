@@ -67,24 +67,31 @@ create table if not exists cliente(CodeCliente varchar(50) primary key not null,
                      FK_CodeEmpresa varchar(50) not null, NombreApellidosCliente varchar(250) not null,
                      TelefonoCliente varchar(50),EmailCliente varchar(50) not null,
                      DireccionCliente varchar(250) not null);
-alter table cliente add constraint rel_cliente_empresa foreign key cliente(FK_CodeEmpresa) references empresa(CodeEmpresa);
 
-/*** DE AQUI NINGUNA SENTENCIA SE EJECUTO **/
-/**GASTO FALTA RELACIONAR CON SUCURSAL**/
+
 create table if not exists gastos(CodeGasto int auto_increment primary key,NombreGasto varchar(250) not null,
                                   FK_CodigoProveedor varchar(50) not null,cantidad decimal(10,2) default 0.00,
                                   CodigoFactura varchar(50) not null,NotaFactura longtext,
-                                  FK_CodigoEmpleado varchar(50) not null,FotoFactura longtext,
+                                  QRealizo varchar(250) not null,FotoFactura longtext,
+                                  DateTimeRegistroGasto datetime default now(),
+                                  FK_CodeEmpresa varchar(50) not null,
                                   FK_CodigoUsuarioAdmin varchar(50) not null);
-alter table gastos add constraint rel_gatos_empleado foreign key gastos(FK_CodigoEmpleado) references empleados(CodigoEmpleado);
+
+create table if not exists ingresos(CodigoIngreso int primary key auto_increment,FechaCreacionIngreso datetime default now(),
+                      NombreIngreso varchar(250) not null,FK_CodigoUsuarioAdmin varchar(50) not null,
+                      FK_Code_Sucursal int not null,FK_CodeEmpresa varchar(50) not null,
+                      FK_CodeCliente varchar(50) not null,CantidadIngreso decimal(10,2) default 0.00,
+                      NotaIngreso longtext,FotoIngreso longtext,EstadoIngreso smallint(2) default 1) comment '0 eliminado 1 activo';
+
+
+/*** DE AQUI NINGUNA SENTENCIA SE EJECUTO **/
+
+/**GASTO FALTA RELACIONAR CON SUCURSAL**/
+alter table cliente add constraint rel_cliente_empresa foreign key cliente(FK_CodeEmpresa) references empresa(CodeEmpresa);
 alter table gastos add constraint rel_gatos_usuario_admin foreign key gastos(FK_CodigoUsuarioAdmin) references usuario_admin(CodigoUsuarioAdmin);
 alter table gastos add constraint rel_gatos_proveedor foreign key gastos(FK_CodigoProveedor) references proveedor(CodigoProveedor);
 
-create table if not exists ingresos(CodigoIngreso int primary key auto_increment,FechaCreacionIngreso datetime default now(),
-                      FechaIngresoIngreso datetime comment 'cuando se registro dicho ingreso',NombreIngreso varchar(250) not null,
-                      FK_Code_Sucursal int not null,
-                      FK_CodeCliente varchar(50) not null,CantidadIngreso decimal(10,2) default 0.00,
-                      NotaIngreso longtext,FotoIngreso longtext,EstadoIngreso smallint(2) default 1) comment '0 eliminado 1 activo';
+
 alter table ingresos add constraint rel_ingresos_cliente foreign key ingresos(FK_CodeCliente) references cliente(CodeCliente);
 alter table ingresos add constraint rel_ingresos_sucursal foreign key ingresos(FK_Code_Sucursal) references sucursales(Code_Sucursal);
 
@@ -115,16 +122,11 @@ alter table gastos_vehicular add constraint rel_gasto_vehicular_tipo_gasto forei
 /*************************************************************************************************************************/
 
 /***** SELECT ***/
-select P.* from proveedor as P inner join empresa_proveedor as EP on P.CodigoProveedor = EP.FK_CodeProveedor and EP.FK_CodeEmpresa = '0604666982001';
+select FORMAT(CAST(sum(G.cantidad) AS DECIMAL(10, 2)), 2) as gasto from gastos as G
+       where FK_CodigoUsuarioAdmin = 'admin01@gmail.com' and FK_CodeEmpresa = '0604666982001' order by G.DateTimeRegistroGasto desc limit 5;
 
-
-
-
-select AUS.FK_Code_Sucursal,S.NombreSucursal from usuario_admin as UA
-       left join usuario_admin_sucursal as AUS on  UA.CodigoUsuarioAdmin = AUS.FK_CodigoUsuarioAdmin
-       left join sucursales as S on AUS.FK_Code_Sucursal = S.Code_Sucursal
-       where UA.CodigoUsuarioAdmin = 'admin01@gmail.com' and UA.FK_CodeEmpresa = '0604666982001';
-
+select FORMAT(CAST(sum(I.CantidadIngreso) AS DECIMAL(10, 2)), 2) as ingreso from ingresos as I
+       where FK_CodigoUsuarioAdmin = 'admin01@gmail.com' and FK_CodeEmpresa = '0604666982001' order by I.FechaCreacionIngreso desc limit 5;
 
 /**INSERT  Q SE DEBEN LLENAR POR DEFECTO**/
 insert into empresa(CodeEmpresa, nombre, direc, logo, telefono1, telefono2, email)
