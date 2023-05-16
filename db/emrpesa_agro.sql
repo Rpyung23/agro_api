@@ -80,7 +80,7 @@ create table if not exists gastos(CodeGasto int auto_increment primary key,Nombr
 create table if not exists ingresos(CodigoIngreso int primary key auto_increment,FechaCreacionIngreso datetime default now(),
                       NombreIngreso varchar(250) not null,FK_CodigoUsuarioAdmin varchar(50) not null,
                       FK_Code_Sucursal int not null,FK_CodeEmpresa varchar(50) not null,
-                      FK_CodeCliente varchar(50) not null,CantidadIngreso decimal(10,2) default 0.00,
+                      NameCliente varchar(250) not null,CantidadIngreso decimal(10,2) default 0.00,
                       NotaIngreso longtext,FotoIngreso longtext,EstadoIngreso smallint(2) default 1) comment '0 eliminado 1 activo';
 
 
@@ -122,11 +122,13 @@ alter table gastos_vehicular add constraint rel_gasto_vehicular_tipo_gasto forei
 /*************************************************************************************************************************/
 
 /***** SELECT ***/
-select FORMAT(CAST(sum(G.cantidad) AS DECIMAL(10, 2)), 2) as gasto from gastos as G
-       where FK_CodigoUsuarioAdmin = 'admin01@gmail.com' and FK_CodeEmpresa = '0604666982001' order by G.DateTimeRegistroGasto desc limit 5;
+select * from gastos;
+select P.NombresApellidosProveedor,P.CodigoProveedor from proveedor as P where P.NombresApellidosProveedor like '%un%';
 
-select FORMAT(CAST(sum(I.CantidadIngreso) AS DECIMAL(10, 2)), 2) as ingreso from ingresos as I
-       where FK_CodigoUsuarioAdmin = 'admin01@gmail.com' and FK_CodeEmpresa = '0604666982001' order by I.FechaCreacionIngreso desc limit 5;
+
+
+
+
 
 /**INSERT  Q SE DEBEN LLENAR POR DEFECTO**/
 insert into empresa(CodeEmpresa, nombre, direc, logo, telefono1, telefono2, email)

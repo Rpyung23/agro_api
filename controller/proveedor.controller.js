@@ -10,6 +10,10 @@ class ProveedorController
     static async readProveedorEmpresaModel(empresa){
         return await ProveedorModel.readProveedoresEmpresaModel(empresa)
     }
+
+    static async readAutocompleteProveedorController(name){
+        return await ProveedorModel.readAutocompleteProveedorModel(name)
+    }
 }
 
 module.exports = ProveedorController

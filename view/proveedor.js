@@ -45,4 +45,25 @@ app.post('/list_proveedor_empresa',JWT.veriJwt,async function (req, res)
     }
 })
 
+
+app.post('/autocomplete_proveedor',JWT.veriJwt,async function (req, res)
+{
+    //console.log(req.body.decoded)
+    try {
+        var result = await ProveedorController.readAutocompleteProveedorController(req.body.proveedor)
+        res.status(200).json({
+            status_code:result.length > 0 ? 200 : 300,
+            msm: result.length > 0 ? 'Proveedores listas' : 'Sin proveedores',
+            data: result
+        })
+    }catch (e) {
+        res.status(200).json({
+            status_code: 400,
+            msm: e.toString(),
+            data:[]
+        })
+    }
+})
+
+
 module.exports = app

@@ -1,6 +1,7 @@
 const connDB = require("../config/conn")
 class EmpresaModel
 {
+
     static async readModelCodigoEmpresa(codigo){
         try {
             var conn = await connDB().promise()
