@@ -12,9 +12,9 @@ class GastoController
     }
 
     static async insertGastoUsuarioController(NombreGasto, FK_CodigoProveedor, cantidad, CodigoFactura, NotaFactura, QRealizo,
-                                              FotoFactura, empresa, usuario_code){
+                                              FotoFactura, empresa, usuario_code,FK_CodeSucursal){
         return await GastoModel.insertGastoUsuarioModel(NombreGasto, FK_CodigoProveedor, cantidad, CodigoFactura, NotaFactura, QRealizo,
-            FotoFactura, empresa, usuario_code)
+            FotoFactura, empresa, usuario_code,FK_CodeSucursal)
     }
 
 }

@@ -32,12 +32,12 @@ class GastoModel
 
 
     static async insertGastoUsuarioModel(NombreGasto, FK_CodigoProveedor, cantidad, CodigoFactura, NotaFactura, QRealizo,
-                                         FotoFactura, empresa, usuario_code)
+                                         FotoFactura, empresa, usuario_code,FK_CodeSucursal)
     {
         try{
             var sql = "insert into gastos(NombreGasto, FK_CodigoProveedor, cantidad, CodigoFactura, NotaFactura, QRealizo," +
-                "FotoFactura, FK_CodeEmpresa, FK_CodigoUsuarioAdmin) VALUES ('"+NombreGasto+"','"+FK_CodigoProveedor+"',"+cantidad+"," +
-                "'"+CodigoFactura+"','"+NotaFactura+"','"+QRealizo+"','"+FotoFactura+"','"+empresa+"','"+usuario_code+"')"
+                "FotoFactura, FK_CodeEmpresa, FK_CodigoUsuarioAdmin,FK_CodeSucursal) VALUES ('"+NombreGasto+"','"+FK_CodigoProveedor+"',"+cantidad+"," +
+                "'"+CodigoFactura+"','"+NotaFactura+"','"+QRealizo+"','"+FotoFactura+"','"+empresa+"','"+usuario_code+"',"+FK_CodeSucursal+")"
             var conn = await connDB().promise()
             await conn.query(sql)
             await conn.end()

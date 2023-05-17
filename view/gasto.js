@@ -8,7 +8,7 @@ app.post('/create_gasto',JWT.veriJwt,async function(req,res)
     try{
         var response = await GastoController.insertGastoUsuarioController(req.body.NombreGasto, req.body.FK_CodigoProveedor,
             req.body.cantidad, req.body.CodigoFactura, req.body.NotaFactura, req.body.QRealizo,
-            req.body.FotoFactura, req.body.decoded.empresa, req.body.decoded.code_usuario)
+            req.body.FotoFactura, req.body.decoded.empresa, req.body.decoded.code_usuario,req.body.sucursal)
 
         res.status(200).json({
             status_code: response ? 200 : 300,
