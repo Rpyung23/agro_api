@@ -11,6 +11,12 @@ class GastoController
         return await GastoModel.readGastoUsuarioModel(empresa,usuario)
     }
 
+    static async insertGastoUsuarioController(NombreGasto, FK_CodigoProveedor, cantidad, CodigoFactura, NotaFactura, QRealizo,
+                                              FotoFactura, empresa, usuario_code){
+        return await GastoModel.insertGastoUsuarioModel(NombreGasto, FK_CodigoProveedor, cantidad, CodigoFactura, NotaFactura, QRealizo,
+            FotoFactura, empresa, usuario_code)
+    }
+
 }
 
 module.exports = GastoController

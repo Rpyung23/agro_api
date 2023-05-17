@@ -30,6 +30,28 @@ class GastoModel
         }
     }
 
+
+    static async insertGastoUsuarioModel(NombreGasto, FK_CodigoProveedor, cantidad, CodigoFactura, NotaFactura, QRealizo,
+                                         FotoFactura, empresa, usuario_code)
+    {
+        try{
+            var sql = "insert into gastos(NombreGasto, FK_CodigoProveedor, cantidad, CodigoFactura, NotaFactura, QRealizo," +
+                "FotoFactura, FK_CodeEmpresa, FK_CodigoUsuarioAdmin) VALUES ('"+NombreGasto+"','"+FK_CodigoProveedor+"',"+cantidad+"," +
+                "'"+CodigoFactura+"','"+NotaFactura+"','"+QRealizo+"','"+FotoFactura+"','"+empresa+"','"+usuario_code+"')"
+            var conn = await connDB().promise()
+            await conn.query(sql)
+            await conn.end()
+            return true
+        }catch (e) {
+            console.log(e)
+            return false
+        }
+
+
+    }
+
+
+
 }
 
 module.exports = GastoModel

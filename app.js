@@ -16,6 +16,7 @@ const sucursal  = require("./view/sucursal")
 const proveedor  = require("./view/proveedor")
 const panel  = require("./view/panel")
 const ingreso  = require("./view/ingreso")
+const gasto  = require("./view/gasto")
 /********/
 
 app.use(empresa)
@@ -24,6 +25,7 @@ app.use(sucursal)
 app.use(proveedor)
 app.use(panel)
 app.use(ingreso)
+app.use(gasto)
 app.listen(process.env.PORT,()=>{
     console.log("SERVER LISTEN "+process.env.PORT)
 })

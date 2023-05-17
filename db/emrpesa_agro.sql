@@ -123,10 +123,6 @@ alter table gastos_vehicular add constraint rel_gasto_vehicular_tipo_gasto forei
 
 /***** SELECT ***/
 select * from gastos;
-select P.NombresApellidosProveedor,P.CodigoProveedor from proveedor as P where P.NombresApellidosProveedor like '%un%';
-
-
-
 
 
 
