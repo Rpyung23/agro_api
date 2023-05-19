@@ -83,6 +83,10 @@ create table if not exists ingresos(CodigoIngreso int primary key auto_increment
                       NameCliente varchar(250) not null,CantidadIngreso decimal(10,2) default 0.00,
                       NotaIngreso longtext,FotoIngreso longtext,EstadoIngreso smallint(2) default 1) comment '0 eliminado 1 activo';
 
+create table vehiculo(PlacaVehiculo varchar(50) not null primary key,FK_Empresa varchar(50) not null,
+                      Fk_sucursal  int not null ,DetalleVehiculo varchar(250),FotoVehiculo longtext,
+                      KmInicial decimal(10,2) default 0.00,KmMantenimiento decimal(10,2) default 0.00);
+
 
 /*** DE AQUI NINGUNA SENTENCIA SE EJECUTO **/
 
@@ -91,8 +95,6 @@ alter table cliente add constraint rel_cliente_empresa foreign key cliente(FK_Co
 alter table gastos add constraint rel_gatos_usuario_admin foreign key gastos(FK_CodigoUsuarioAdmin) references usuario_admin(CodigoUsuarioAdmin);
 alter table gastos add constraint rel_gatos_proveedor foreign key gastos(FK_CodigoProveedor) references proveedor(CodigoProveedor);
 
-
-alter table ingresos add constraint rel_ingresos_cliente foreign key ingresos(FK_CodeCliente) references cliente(CodeCliente);
 alter table ingresos add constraint rel_ingresos_sucursal foreign key ingresos(FK_Code_Sucursal) references sucursales(Code_Sucursal);
 
 
@@ -100,8 +102,7 @@ alter table ingresos add constraint rel_ingresos_sucursal foreign key ingresos(F
 
 /**REVISAR LA TABLA VEHICULO**/
 create table tipo_gasto(CodeTipoGasto int primary key auto_increment,DetalleTipoGasto varchar(250) not null);
-create table vehiculo(PlacaVehiculo varchar(50) not null primary key,DetalleVehiculo varchar(250),FotoVehiculo longtext,
-                      KmInicial decimal(10,2) default 0.00,KmMantenimiento decimal(10,2) default 0.00);
+
 /*****************************************************************/
 
 create table gastos_vehicular(CodeGastoVehicular int primary key auto_increment,
@@ -122,7 +123,10 @@ alter table gastos_vehicular add constraint rel_gasto_vehicular_tipo_gasto forei
 /*************************************************************************************************************************/
 
 /***** SELECT ***/
-select * from gastos;
+select V.PlacaVehiculo,V.Fk_sucursal,V.FotoVehiculo,V.FK_Empresa
+       from vehiculo as V where V.FK_Empresa = '0604666982001' and V.Fk_sucursal = 1;
+insert into vehiculo(PlacaVehiculo, FK_Empresa, Fk_sucursal, KmInicial, FotoVehiculo)
+            VALUES ('AAA-KK','0604666982001',1,105.52,'SIN DETALLE');
 
 
 
