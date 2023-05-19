@@ -123,13 +123,11 @@ alter table gastos_vehicular add constraint rel_gasto_vehicular_tipo_gasto forei
 /*************************************************************************************************************************/
 
 /***** SELECT ***/
-select V.PlacaVehiculo,V.Fk_sucursal,V.FotoVehiculo,V.FK_Empresa
-       from vehiculo as V where V.FK_Empresa = '0604666982001' and V.Fk_sucursal = 1;
-insert into vehiculo(PlacaVehiculo, FK_Empresa, Fk_sucursal, KmInicial, FotoVehiculo)
-            VALUES ('AAA-KK','0604666982001',1,105.52,'SIN DETALLE');
+select FORMAT(CAST(sum(table1.ingreso) AS DECIMAL(10, 2)), 2) as ingresos from (select I.CantidadIngreso as ingreso from ingresos as I where
+      FK_CodigoUsuarioAdmin = 'admin01@gmail.com' and FK_CodeEmpresa = '0604666982001' order by I.FechaCreacionIngreso desc limit 5) as table1;
 
 
-
+select * from gastos where FK_CodeEmpresa = '0604666982001';
 /**INSERT  Q SE DEBEN LLENAR POR DEFECTO**/
 insert into empresa(CodeEmpresa, nombre, direc, logo, telefono1, telefono2, email)
             values ('0604666982001','VIRTUALCODE7 S.A.S','','','0993706012','','virtualcode7ecuador@gmail.com');

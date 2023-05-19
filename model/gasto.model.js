@@ -6,9 +6,13 @@ class GastoModel
     {
         try{
             var conn = await  connDB().promise()
-            var sql = "select FORMAT(CAST(sum(G.cantidad) AS DECIMAL(10, 2)), 2) as gasto from gastos as G " +
-                "where FK_CodigoUsuarioAdmin = '"+usuario+"' and FK_CodeEmpresa = '"+empresa+"' order by G.DateTimeRegistroGasto desc limit 5;"
 
+            var sql = "select FORMAT(CAST(sum(table1.gasto) AS DECIMAL(10, 2)), 2) as gasto from (select G.cantidad as gasto from gastos as G " +
+                "where FK_CodigoUsuarioAdmin = '"+usuario+"' and FK_CodeEmpresa = '"+empresa+"' order by G.DateTimeRegistroGasto desc limit 5) as table1;"
+
+            /*var sql = "select FORMAT(CAST(sum(G.cantidad) AS DECIMAL(10, 2)), 2) as gasto from gastos as G " +
+                "where FK_CodigoUsuarioAdmin = '"+usuario+"' and FK_CodeEmpresa = '"+empresa+"' order by G.DateTimeRegistroGasto desc limit 5;"*/
+            //console.log(sql)
             var datos = await conn.query(sql)
             return datos[0][0].gasto
         }catch (e) {
@@ -22,7 +26,7 @@ class GastoModel
             var conn = await  connDB().promise()
             var sql = "select FORMAT(CAST(sum(G.cantidad) AS DECIMAL(10, 2)), 2) as gasto from gastos as G " +
                 "where FK_CodigoUsuarioAdmin = '"+usuario+"' and FK_CodeEmpresa = '"+empresa+"' order by G.DateTimeRegistroGasto desc;"
-
+            //console.log(sql)
             var datos = await conn.query(sql)
             return datos[0][0].gasto
         }catch (e) {
