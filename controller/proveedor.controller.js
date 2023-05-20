@@ -18,6 +18,12 @@ class ProveedorController
     static async readDetalleProveedorController(codigo){
         return await ProveedorModel.readDetalleProveedorModel(codigo)
     }
+
+    static async updateDetalleProveedorController(CodigoProveedor,NombresApellidosProveedor,AtienddeProveedor,
+                                                  TelefonoEmpresa,TelefonoProveedor,DomicilioGoogle,DirProveedor,CuentaBancaria){
+        return await ProveedorModel.updateDetalleProveedorModel(CodigoProveedor,NombresApellidosProveedor,AtienddeProveedor,
+            TelefonoEmpresa,TelefonoProveedor,DomicilioGoogle,DirProveedor,CuentaBancaria)
+    }
 }
 
 module.exports = ProveedorController

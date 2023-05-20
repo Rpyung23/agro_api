@@ -127,6 +127,10 @@ alter table gastos_vehicular add constraint rel_gasto_vehicular_tipo_gasto forei
 select P.CodigoProveedor,P.NombresApellidosProveedor,P.AtienddeProveedor,P.TelefonoEmpresa,P.TelefonoProveedor,P.DomicilioGoogle,
        P.DirProveedor,P.CuentaBancaria from proveedor as P where P.CodigoProveedor = '';
 
+update proveedor set NombresApellidosProveedor = '',AtienddeProveedor = '',TelefonoEmpresa = '',
+       TelefonoProveedor = '',DomicilioGoogle = '',DirProveedor = '',CuentaBancaria = ''
+       where CodigoProveedor = '';
+
 /**INSERT  Q SE DEBEN LLENAR POR DEFECTO**/
 insert into empresa(CodeEmpresa, nombre, direc, logo, telefono1, telefono2, email)
             values ('0604666982001','VIRTUALCODE7 S.A.S','','','0993706012','','virtualcode7ecuador@gmail.com');

@@ -86,4 +86,24 @@ app.post('/detalle_proveedor',JWT.veriJwt,async function (req, res)
 })
 
 
+app.put('/update_detalle_proveedor',JWT.veriJwt,async function (req, res)
+{
+    //console.log(req.body.decoded)
+    try {
+        var result = await ProveedorController.updateDetalleProveedorController(req.body.CodigoProveedor,req.body.NombresApellidosProveedor,
+            req.body.AtienddeProveedor,
+            req.body.TelefonoEmpresa,req.body.TelefonoProveedor,req.body.DomicilioGoogle,req.body.DirProveedor,req.body.CuentaBancaria)
+        res.status(200).json({
+            status_code:result  ? 200 : 300,
+            msm: result ? 'Datos actualizados' : 'No se ha podido actualizar',
+        })
+    }catch (e) {
+        res.status(200).json({
+            status_code: 400,
+            msm: e.toString(),
+        })
+    }
+})
+
+
 module.exports = app
