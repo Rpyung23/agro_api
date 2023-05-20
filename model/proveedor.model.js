@@ -46,6 +46,21 @@ class ProveedorModel
             return []
         }
     }
+
+
+    static async readDetalleProveedorModel(codigoProveedor)
+    {
+        try {
+            var conn = await connDB().promise()
+            var sql = "select P.NombresApellidosProveedor,P.AtienddeProveedor,P.TelefonoEmpresa,P.TelefonoProveedor," +
+                "P.DomicilioGoogle,P.DirProveedor,P.CuentaBancaria from proveedor as P where P.CodigoProveedor = '"+codigoProveedor+"'"
+            var datos = await conn.query(sql)
+            await conn.end()
+            return datos[0]
+        }catch (e) {
+            return []
+        }
+    }
 }
 
 module.exports = ProveedorModel

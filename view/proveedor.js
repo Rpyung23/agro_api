@@ -66,4 +66,24 @@ app.post('/autocomplete_proveedor',JWT.veriJwt,async function (req, res)
 })
 
 
+app.post('/detalle_proveedor',JWT.veriJwt,async function (req, res)
+{
+    //console.log(req.body.decoded)
+    try {
+        var result = await ProveedorController.readDetalleProveedorController(req.body.proveedor)
+        res.status(200).json({
+            status_code:result.length > 0 ? 200 : 300,
+            msm: result.length > 0 ? 'Proveedor encontrado' : 'Sin Detalle',
+            data: result
+        })
+    }catch (e) {
+        res.status(200).json({
+            status_code: 400,
+            msm: e.toString(),
+            data: []
+        })
+    }
+})
+
+
 module.exports = app
