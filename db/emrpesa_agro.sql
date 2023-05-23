@@ -87,6 +87,18 @@ create table vehiculo(PlacaVehiculo varchar(50) not null primary key,FK_Empresa 
                       Fk_sucursal  int not null ,DetalleVehiculo varchar(250),FotoVehiculo longtext,
                       KmInicial decimal(10,2) default 0.00,KmMantenimiento decimal(10,2) default 0.00);
 
+create table estado_trabajo(idEstadoTrabajo int auto_increment primary key,detalle varchar(250) default '');
+
+create table trabajos(idTrabajo int primary key auto_increment,NameTrabajo varchar(250),Fk_Sucursal int not null ,
+                      Fk_Empresa varchar(50) not null,fotoTrabajo text,fechaInicio date,fechaFin date,fechaLimite date,
+                      notaTrabajo text,FKEstadoTrabajo int default 1);
+
+alter table trabajos add constraint  rel_trabajo_sucursal foreign key trabajos(Fk_Sucursal) references sucursales(Code_Sucursal);
+alter table trabajos add constraint  rel_trabajo_empresa foreign key trabajos(Fk_Empresa) references empresa(CodeEmpresa);
+alter table trabajos add constraint  rel_trabajo_estado_trabajo foreign key trabajos(FKEstadoTrabajo) references estado_trabajo(idEstadoTrabajo);
+
+
+
 
 /*** DE AQUI NINGUNA SENTENCIA SE EJECUTO **/
 
@@ -123,13 +135,14 @@ alter table gastos_vehicular add constraint rel_gasto_vehicular_tipo_gasto forei
 /*************************************************************************************************************************/
 
 /***** SELECT ***/
+use agro;
+select * from  trabajos;
 
-select P.CodigoProveedor,P.NombresApellidosProveedor,P.AtienddeProveedor,P.TelefonoEmpresa,P.TelefonoProveedor,P.DomicilioGoogle,
-       P.DirProveedor,P.CuentaBancaria from proveedor as P where P.CodigoProveedor = '';
 
-update proveedor set NombresApellidosProveedor = '',AtienddeProveedor = '',TelefonoEmpresa = '',
-       TelefonoProveedor = '',DomicilioGoogle = '',DirProveedor = '',CuentaBancaria = ''
-       where CodigoProveedor = '';
+
+
+
+
 
 /**INSERT  Q SE DEBEN LLENAR POR DEFECTO**/
 insert into empresa(CodeEmpresa, nombre, direc, logo, telefono1, telefono2, email)
@@ -167,6 +180,10 @@ insert into proveedor(CodigoProveedor, NombresApellidosProveedor, DirProveedor, 
 insert into proveedor(CodigoProveedor, NombresApellidosProveedor, DirProveedor, TelefonoProveedor,
             EmailProveedor, CuentaBancaria)
             VALUES (unix_timestamp(),'PROVEEDOR 004','ECUADOR','078945613','proveedor01@gmail.com','11111111');
+
+insert into estado_trabajo(detalle) values ('Pendiente');
+insert into estado_trabajo(detalle) values ('En Proceso');
+insert into estado_trabajo(detalle) values ('Finalizado');
 
 
 -- procedimientos para por defecto

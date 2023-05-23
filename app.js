@@ -18,6 +18,7 @@ const panel  = require("./view/panel")
 const ingreso  = require("./view/ingreso")
 const gasto  = require("./view/gasto")
 const vehiculo  = require("./view/vehiculo")
+const trabajo  = require("./view/trabajo")
 /********/
 
 app.use(empresa)
@@ -28,6 +29,7 @@ app.use(panel)
 app.use(ingreso)
 app.use(gasto)
 app.use(vehiculo)
+app.use(trabajo)
 
 app.listen(process.env.PORT,()=>{
     console.log("SERVER LISTEN "+process.env.PORT)

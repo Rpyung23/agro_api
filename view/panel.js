@@ -2,6 +2,8 @@ const express = require("express")
 const app = express()
 const GastoController = require("../controller/gasto.controller")
 const IngresoController = require("../controller/ingreso.controller")
+const TrabajoController = require("../controller/trabajo.controller")
+
 const JWT = require("../config/jwt");
 app.post('/panel_usuario_empresa',JWT.veriJwt,async function (req, res)
 {
@@ -18,6 +20,9 @@ app.post('/panel_usuario_empresa',JWT.veriJwt,async function (req, res)
         var ingresoPanel = await IngresoController.readIngresoUsuarioController(req.body.decoded.empresa,
             req.body.decoded.code_usuario)
 
+        var trabajos = await  TrabajoController.totalTodoTipoTrabajoEmpresaControlle(req.body.decoded.empresa,
+            req.body.decoded.code_usuario)
+
         res.status(200).json({
             status_code: 200,
             msm: 'Datos obtenidos con éxito',
@@ -30,7 +35,7 @@ app.post('/panel_usuario_empresa',JWT.veriJwt,async function (req, res)
                 faltantes: 5,
                 presentes: 7
             },
-            trabajoPen: 10
+            trabajoPen: trabajos.pendiente
         })
     }catch (e) {
         res.status(200).json({
