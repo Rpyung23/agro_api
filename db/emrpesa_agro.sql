@@ -9,13 +9,15 @@ create table if not exists sucursales(Code_Sucursal int primary key auto_increme
                                       TelefonoSucursal varchar(50));
 alter table sucursales add constraint rel_empresa_sucursales foreign key sucursales(FK_CodeEmpresa) references empresa(CodeEmpresa)
                        on update cascade on delete cascade;
+
 create table if not exists empleados(CodigoEmpleado varchar(50) primary key comment 'DNI RUC',
                         NombresApellidosEmpleado varchar(250) not null ,DirEmpleado varchar(250),
                         TelefonoEmpleado varchar(50),EmailEmpleado varchar(50) not null ,
                         FotoEmpleado longtext,FechaCreacionEmpleado datetime default now(),
+                        FK_CodigoSucursal int not null,
                         EstadoEmpleado smallint(2) default 1 comment '0 inactivo 1 activo');
 create table if not exists estado_empleados(IdEstado int primary key auto_increment,DetalleEstado varchar(250) not null);
-create table if not exists empleado_sucursal(CodeEmpleadoSucursales int primary key auto_increment,
+/*create table if not exists empleado_sucursal(CodeEmpleadoSucursales int primary key auto_increment,
                                  FK_CodigoEmpleado varchar(50) not null,
                                  FK_CodigoSucursal int not null,
                                  FK_EstadoEmpleado int not null,
@@ -25,14 +27,15 @@ alter table  empleado_sucursal add constraint rel_empleado_sucursal_codigo_emple
 alter table empleado_sucursal add constraint rel_empleado_sucursal_codigo_sucursal
       foreign key empleado_sucursal(FK_CodigoSucursal) references sucursales(Code_Sucursal);
 alter table empleado_sucursal add constraint rel_empleado_sucursal_estado_empleado
-      foreign key empleado_sucursal(FK_EstadoEmpleado) references estado_empleados(IdEstado);
-create table asistencia_empleado(CodeAsistencia int primary key auto_increment,FK_CodigoEmpleado varchar(50) not null,
+      foreign key empleado_sucursal(FK_EstadoEmpleado) references estado_empleados(IdEstado);*/
+alter table empleados add constraint rel_empleado_secursal foreign key empleados(FK_CodigoSucursal) references sucursales(Code_Sucursal);
+/*create table asistencia_empleado(CodeAsistencia int primary key auto_increment,FK_CodigoEmpleado varchar(50) not null,
                                  FK_Code_Sucursal int not null,FechaAsistencia datetime default now(),
                                  FaltaAsistencia int default 0 comment 'Minutos de atrasos o adelanto');
 alter table asistencia_empleado add constraint rel_asistencia_empleado_empleado foreign key asistencia_empleado(FK_CodigoEmpleado)
                                 references empleados(CodigoEmpleado);
 alter table asistencia_empleado add constraint rel_asistencia_empleado_sucursal foreign key asistencia_empleado(FK_Code_Sucursal)
-                                references sucursales(Code_Sucursal);
+                                references sucursales(Code_Sucursal);*/
 create table if not exists proveedor(CodigoProveedor varchar(50) primary key comment 'DNI RUC',
                         NombresApellidosProveedor varchar(250) not null ,DirProveedor varchar(250),
                         TelefonoProveedor varchar(50),EmailProveedor varchar(50) not null ,
@@ -135,11 +138,9 @@ alter table gastos_vehicular add constraint rel_gasto_vehicular_tipo_gasto forei
 /*************************************************************************************************************************/
 
 /***** SELECT ***/
-use agro;
-select * from  trabajos;
-
-
-
+select * from sucursales;
+select E.CodigoEmpleado,E.FK_CodigoSucursal,E.FotoEmpleado,E.NombresApellidosEmpleado
+       from empleados as E where E.FK_CodigoSucursal = 1 and E.NombresApellidosEmpleado like '%Nel%';
 
 
 
