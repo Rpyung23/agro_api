@@ -10,7 +10,10 @@ class VehiculoController
     {
         return await VehiculoModel.readVehiculoSucursalEmpresaModel(empresa_code,sucursal_code)
     }
-    
+
+    static async insertGastoVehiculoModel(placa,precio,fecha,factura,foto){
+        return await VehiculoModel.insertGastoVehiculoModel(placa,precio,fecha,factura,foto)
+    }
 }
 
 module.exports = VehiculoController

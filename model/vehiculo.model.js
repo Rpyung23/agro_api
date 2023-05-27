@@ -15,7 +15,6 @@ class VehiculoModel
             return false
         }
     }
-
     static async readVehiculoSucursalEmpresaModel(empresa_code,sucursal_code)
     {
         try{
@@ -29,6 +28,22 @@ class VehiculoModel
             return []
         }
     }
+
+    static async insertGastoVehiculoModel(placa,precio,fecha,factura,foto)
+    {
+        try{
+            var conn = await connDB().promise()
+            var sql = "insert into gastos_vehicular(FK_PlacaVehicular, ValorGastoVehicular, FechaProximoServicio, " +
+                "NumeroTicketGastoVehicular,FotoTicketGastoVehicular) VALUES " +
+                "('"+placa+"',"+precio+",'"+fecha+"','"+factura+"','"+foto+"');"
+            var datos = await conn.query(sql)
+            await conn.end()
+            return true
+        }catch (e) {
+            return false
+        }
+    }
+
 }
 
 module.exports = VehiculoModel

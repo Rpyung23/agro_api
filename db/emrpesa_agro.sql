@@ -100,7 +100,16 @@ alter table trabajos add constraint  rel_trabajo_sucursal foreign key trabajos(F
 alter table trabajos add constraint  rel_trabajo_empresa foreign key trabajos(Fk_Empresa) references empresa(CodeEmpresa);
 alter table trabajos add constraint  rel_trabajo_estado_trabajo foreign key trabajos(FKEstadoTrabajo) references estado_trabajo(idEstadoTrabajo);
 
+create table gastos_vehicular(CodeGastoVehicular int primary key auto_increment,
+                              FK_PlacaVehicular varchar(50) not null,
+                              ValorGastoVehicular decimal(10,2) default 0.00,
+                              FechaCreacionGasto datetime default now(),
+                              FechaProximoServicio datetime comment 'esta fecha se guarda cuando se envia la fecha de registro de la factura',
+                              NumeroTicketGastoVehicular varchar(250) not null,
+                              FotoTicketGastoVehicular longtext);
 
+alter table gastos_vehicular add constraint rel_gasto_vehicular_vehiculo foreign key gastos_vehicular(FK_PlacaVehicular)
+                             references vehiculo(PlacaVehiculo);
 
 
 /*** DE AQUI NINGUNA SENTENCIA SE EJECUTO **/
@@ -115,29 +124,18 @@ alter table ingresos add constraint rel_ingresos_sucursal foreign key ingresos(F
 
 
 
-/**REVISAR LA TABLA VEHICULO**/
-create table tipo_gasto(CodeTipoGasto int primary key auto_increment,DetalleTipoGasto varchar(250) not null);
 
-/*****************************************************************/
 
-create table gastos_vehicular(CodeGastoVehicular int primary key auto_increment,
-                              FK_PlacaVehicular varchar(50) not null,
-                              ValorGastoVehicular decimal(10,2) default 0.00,
-                              FechaCreacionGasto datetime default now(),
-                              FechaRegistroGasto datetime comment 'esta fecha se guarda cuando se envia la fecha de registro de la factura',
-                              NumeroTicketGastoVehicular varchar(250) not null,
-                              FotoTicketGastoVehicular longtext,
-                              FK_CodeTipoGasto int not null);
-
-alter table gastos_vehicular add constraint rel_gasto_vehicular_vehiculo foreign key gastos_vehicular(FK_PlacaVehicular)
-                             references vehiculo(PlacaVehiculo);
-
-alter table gastos_vehicular add constraint rel_gasto_vehicular_tipo_gasto foreign key gastos_vehicular(FK_CodeTipoGasto)
-                             references tipo_gasto(CodeTipoGasto);
 
 /*************************************************************************************************************************/
 
 /***** SELECT ***/
+select * from vehiculo;
+insert into gastos_vehicular(FK_PlacaVehicular, ValorGastoVehicular, FechaProximoServicio, NumeroTicketGastoVehicular,
+                             FotoTicketGastoVehicular) VALUES ('44455',10.20,'2023-11-05','123121222','https://firebasestorage.googleapis.com/v0/b/ces-expres.appspot.com/o/vehi.jpg?alt=media');
+select * from gastos_vehicular;
+select * from trabajos;
+select * from estado_trabajo;
 select * from sucursales;
 select E.CodigoEmpleado,E.FK_CodigoSucursal,E.FotoEmpleado,E.NombresApellidosEmpleado
        from empleados as E where E.FK_CodigoSucursal = 1 and E.NombresApellidosEmpleado like '%Nel%';
