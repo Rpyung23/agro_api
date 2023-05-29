@@ -55,6 +55,26 @@ class GastoModel
     }
 
 
+    static async readModelGastoFechaModel(empresa,sucursal,fechaI,fechaF)
+    {
+        try{
+            var conn = await connDB().promise()
+
+
+
+            var sql = "select FORMAT(CAST(if(ISNULL(sum(G.cantidad)),0,sum(G.cantidad)) AS DECIMAL(10, 2)), 2) gasto from gastos as G where " +
+                "G.FK_CodeSucursal = "+sucursal+" and G.FK_CodeEmpresa = '"+empresa+"' and " +
+                "date(G.DateTimeRegistroGasto) between '"+fechaI+"' and '"+fechaF+"'"
+            console.log(sql)
+            var datos = await conn.query(sql)
+            await conn.end()
+
+            return datos[0][0].gasto
+        }catch (e) {
+            console.log(e)
+            return  '0.00'
+        }
+    }
 
 }
 

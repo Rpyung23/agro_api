@@ -17,6 +17,10 @@ class GastoController
             FotoFactura, empresa, usuario_code,FK_CodeSucursal)
     }
 
+    static async readModelGastoFechaController(empresa,sucursal,fechaI,fechaF){
+        return await GastoModel.readModelGastoFechaModel(empresa,sucursal,fechaI,fechaF)
+    }
+
 }
 
 module.exports = GastoController

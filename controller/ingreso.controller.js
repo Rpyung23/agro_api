@@ -17,6 +17,10 @@ class IngresoController
             name_cliente,cantidad,nota,foto)
     }
 
+    static async readModelIngresoFechaController(empresa,sucursal,fechaI,fechaF){
+        return await IngresoModel.readModelIngresoFechaModel(empresa,sucursal,fechaI,fechaF)
+    }
+
 }
 
 module.exports = IngresoController

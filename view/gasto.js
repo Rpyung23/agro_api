@@ -23,5 +23,23 @@ app.post('/create_gasto',JWT.veriJwt,async function(req,res)
     }
 })
 
+app.post('/gasto_fecha',JWT.veriJwt,async function(req,res)
+{
+    try{
+        var response = await GastoController.readModelGastoFechaController(req.body.decoded.empresa,
+            req.body.sucursal,req.body.fechaI,req.body.fechaF)
+
+        res.status(200).json({
+            status_code: 200 ,
+            cantidad: response
+        })
+    }catch (e) {
+
+        res.status(200).json({
+            status_code: 200 ,
+            cantidad: '0.00'
+        })
+    }
+})
 
 module.exports = app

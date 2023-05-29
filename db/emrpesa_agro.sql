@@ -259,3 +259,11 @@ end;
 call registerProveedor('0604666982001','PRO',
     '4pjjjj','44444','dsasd','6546546','asd');
 call registerSucursalUserAdmin('admin01@gmail.com','0604666982001','SUCURSAL 100','','');
+
+
+use agro;
+select if(ISNULL(sum(G.cantidad)),0,sum(G.cantidad)) gasto from gastos as G where G.FK_CodeSucursal = 1 and G.FK_CodeEmpresa = '0604666982001'
+                       and date(G.DateTimeRegistroGasto) between '2023-05-01' and '2023-05-28';
+select FORMAT(CAST(if(ISNULL(sum(I.CantidadIngreso)),0,sum(I.CantidadIngreso)) AS DECIMAL(10, 2)), 2) ingreso from ingresos as I
+       where I.FK_Code_Sucursal = 1 and I.FK_CodeEmpresa = '0604666982001' and date(I.FechaCreacionIngreso)
+       between '2023-05-01' and '2023-05-30';

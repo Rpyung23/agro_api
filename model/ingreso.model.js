@@ -53,6 +53,27 @@ class IngresoModel
         }
     }
 
+    static async readModelIngresoFechaModel(empresa,sucursal,fechaI,fechaF)
+    {
+        try{
+            var conn = await connDB().promise()
+
+
+
+            var sql = "select FORMAT(CAST(if(ISNULL(sum(I.CantidadIngreso)),0,sum(I.CantidadIngreso)) AS DECIMAL(10, 2)), 2) ingreso " +
+                "from ingresos as I where I.FK_Code_Sucursal = "+sucursal+" and I.FK_CodeEmpresa = '"+empresa+"' and date(I.FechaCreacionIngreso) " +
+                "between '"+fechaI+"' and '"+fechaF+"'"
+            //console.log(sql)
+            var datos = await conn.query(sql)
+            await conn.end()
+
+            return datos[0][0].ingreso
+        }catch (e) {
+            console.log(e)
+            return  '0.00'
+        }
+    }
+
 }
 
 module.exports = IngresoModel
