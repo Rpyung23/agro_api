@@ -262,8 +262,6 @@ call registerSucursalUserAdmin('admin01@gmail.com','0604666982001','SUCURSAL 100
 
 
 use agro;
-select if(ISNULL(sum(G.cantidad)),0,sum(G.cantidad)) gasto from gastos as G where G.FK_CodeSucursal = 1 and G.FK_CodeEmpresa = '0604666982001'
-                       and date(G.DateTimeRegistroGasto) between '2023-05-01' and '2023-05-28';
-select FORMAT(CAST(if(ISNULL(sum(I.CantidadIngreso)),0,sum(I.CantidadIngreso)) AS DECIMAL(10, 2)), 2) ingreso from ingresos as I
-       where I.FK_Code_Sucursal = 1 and I.FK_CodeEmpresa = '0604666982001' and date(I.FechaCreacionIngreso)
-       between '2023-05-01' and '2023-05-30';
+select T.idTrabajo,T.NameTrabajo,T.fechaLimite,T.FKEstadoTrabajo,upper(ET.detalle) detalleEstado from trabajos as T
+    inner join estado_trabajo as ET on T.FKEstadoTrabajo = ET.idEstadoTrabajo where T.FKEstadoTrabajo in (1,2) and
+    T.NameTrabajo like '%001%' and T.Fk_Empresa = '0604666982001' and T.Fk_Sucursal = 1;

@@ -27,6 +27,26 @@ app.post('/create_trabajo',JWT.veriJwt,async function(req,res)
 
 })
 
+app.post('/query_trabajo',JWT.veriJwt,async function(req,res)
+{
+
+    try {
+        var response = await TrabajoController.queryReadTrabajoController(req.body.decoded.empresa,req.body.sucursal,req.body.trabajo)
+
+        res.status(200).json({
+            status_code: 200,
+            datos : response
+        })
+    }catch (e) {
+        res.status(200).json({
+            status_code: 400,
+            datos: []
+        })
+    }
+
+
+})
+
 
 
 module.exports = app
