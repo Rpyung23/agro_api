@@ -48,12 +48,14 @@ class TrabajosModel
 
     static async queryReadTrabajoModel(empresa,sucursal,trabajo)
     {
+
         try{
             var conn = await connDB().promise()
             var sql = "select T.idTrabajo,T.NameTrabajo,convert(T.fechaLimite,char(150)) fechaLimite,T.FKEstadoTrabajo,upper(ET.detalle) detalleEstado " +
                 "from trabajos as T inner join estado_trabajo as ET on T.FKEstadoTrabajo = ET.idEstadoTrabajo " +
                 "where T.FKEstadoTrabajo in (1,2) and T.NameTrabajo like '%"+trabajo+"%' " +
                 "and T.Fk_Empresa = '"+empresa+"' and T.Fk_Sucursal = "+sucursal
+           console.log(sql)
             var datos = await conn.query(sql)
             await conn.end()
             return datos[0]
