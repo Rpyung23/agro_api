@@ -262,6 +262,6 @@ call registerSucursalUserAdmin('admin01@gmail.com','0604666982001','SUCURSAL 100
 
 
 use agro;
-select T.idTrabajo,T.NameTrabajo,T.fechaLimite,T.FKEstadoTrabajo,upper(ET.detalle) detalleEstado from trabajos as T
-    inner join estado_trabajo as ET on T.FKEstadoTrabajo = ET.idEstadoTrabajo where T.FKEstadoTrabajo in (1,2) and
-    T.NameTrabajo like '%%' and T.Fk_Empresa = '0604666982001' and T.Fk_Sucursal = 1;
+select * from estado_trabajo;
+select T.idTrabajo,T.NameTrabajo,T.fotoTrabajo,T.fechaInicio,T.fechaFin,T.fechaLimite,T.notaTrabajo,T.FKEstadoTrabajo
+        from trabajos as T where T.idTrabajo = 1;

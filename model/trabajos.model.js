@@ -24,7 +24,6 @@ class TrabajosModel
             }
         }
     }
-
     static async insertTrabajoModel(NameTrabajo, Fk_Sucursal, empresa, fotoTrabajo, fechaInicio, fechaFin,
                                     fechaLimite, notaTrabajo, FKEstadoTrabajo)
     {
@@ -43,9 +42,6 @@ class TrabajosModel
 
 
     }
-
-
-
     static async queryReadTrabajoModel(empresa,sucursal,trabajo)
     {
 
@@ -63,6 +59,22 @@ class TrabajosModel
             return []
         }
     }
+
+    static async readDetalleTrabajoModel(empresa,sucursal,trabajo)
+    {
+        try{
+            var conn = await connDB().promise()
+            var sql = "select T.idTrabajo,T.NameTrabajo,T.fotoTrabajo,T.fechaInicio,T.fechaFin," +
+                "T.fechaLimite,T.notaTrabajo,T.FKEstadoTrabajo from trabajos as T where T.idTrabajo = "+trabajo
+            var datos = await conn.query(sql)
+            await conn.end()
+            return datos[0]
+        }catch (e) {
+            return []
+        }
+    }
+
+
 }
 
 module.exports = TrabajosModel

@@ -16,6 +16,10 @@ class TrabajoController
     static async queryReadTrabajoController(empresa,sucursal,trabajo){
         return await TrabajosModel.queryReadTrabajoModel(empresa,sucursal,trabajo)
     }
+
+    static async readDetalleTrabajoModel(empresa,sucursal,trabajo){
+        return await TrabajosModel.readDetalleTrabajoModel(empresa,sucursal,trabajo)
+    }
 }
 
 module.exports = TrabajoController
