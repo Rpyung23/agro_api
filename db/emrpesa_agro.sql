@@ -262,6 +262,9 @@ call registerSucursalUserAdmin('admin01@gmail.com','0604666982001','SUCURSAL 100
 
 
 use agro;
-select * from estado_trabajo;
-select T.idTrabajo,T.NameTrabajo,T.fotoTrabajo,T.fechaInicio,T.fechaFin,T.fechaLimite,T.notaTrabajo,T.FKEstadoTrabajo
-        from trabajos as T where T.idTrabajo = 1;
+select T.idTrabajo,T.NameTrabajo,T.fechaInicio,T.fechaFin,T.fechaLimite,T.FKEstadoTrabajo,ET.detalle,S.NombreSucursal
+       from trabajos as T
+       inner join estado_trabajo as ET on T.FKEstadoTrabajo = ET.idEstadoTrabajo
+       inner join sucursales as S on S.Code_Sucursal = T.Fk_Sucursal inner join usuario_admin_sucursal as UAS
+       on UAS.FK_Code_Sucursal = S.Code_Sucursal where UAS.FK_CodigoUsuarioAdmin = 'admin01@gmail.com'
+       order by T.Fk_Sucursal asc;

@@ -14,6 +14,10 @@ class EmpleadoController
     static async queryEmpleadoSucursalController(sucursal,empleado){
         return await EmpleadoModel.queryEmpleadoSucursalModel(sucursal,empleado)
     }
+
+    static async readEmpleadoAllUserController(usuario_admin){
+        return await EmpleadoModel.readEmpleadoAllUserModel(usuario_admin)
+    }
 }
 
 module.exports = EmpleadoController

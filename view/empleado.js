@@ -63,4 +63,24 @@ app.post("/query_empleado_sucursal",JWT.veriJwt,async function(req,res)
 })
 
 
+app.post("/read_empleado_all_usuario_admin",JWT.veriJwt,async function(req,res)
+{
+
+    try{
+        var response = await EmpleadoController.readEmpleadoAllUserController(req.body.decoded.code_usuario)
+
+        res.status(200).json({
+            status_code : response.length > 0 ? 200 : 300,
+            datos: response,
+            msm : response.length > 0 ? 'Empleados encontrados' : 'Sin empleados'
+        })
+    }catch (e) {
+        res.status(200).json({
+            status_code : 400,
+            datos: [],
+            msm : e.toString()
+        })
+    }
+})
+
 module.exports = app

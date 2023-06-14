@@ -20,6 +20,10 @@ class TrabajoController
     static async readDetalleTrabajoModel(empresa,sucursal,trabajo){
         return await TrabajosModel.readDetalleTrabajoModel(empresa,sucursal,trabajo)
     }
+
+    static async readTrabajoUsuariosController(codeUsuario){
+        return await TrabajosModel.readTrabajoUsuariosModel(codeUsuario)
+    }
 }
 
 module.exports = TrabajoController

@@ -44,6 +44,25 @@ class VehiculoModel
         }
     }
 
+
+    static async readVehiculoUsuarioEmpresaAllModel(user_code)
+    {
+        try{
+            var conn = await connDB().promise()
+            var datos = await conn.query("select V.PlacaVehiculo,V.DetalleVehiculo,V.KmInicial," +
+                "V.KmMantenimiento,count(GV.CodeGastoVehicular) NoServicios,S.NombreSucursal " +
+                "from vehiculo as V left join gastos_vehicular as GV on V.PlacaVehiculo = GV.FK_PlacaVehicular " +
+                "left join usuario_admin_sucursal as US on V.Fk_sucursal = US.FK_Code_Sucursal left join sucursales as S " +
+                "on US.FK_Code_Sucursal = S.Code_Sucursal where US.FK_CodigoUsuarioAdmin = '"+user_code+"' " +
+                "group by V.PlacaVehiculo;")
+            await conn.end()
+            return datos[0]
+        }catch (e) {
+            console.log(e)
+            return []
+        }
+    }
+
 }
 
 module.exports = VehiculoModel

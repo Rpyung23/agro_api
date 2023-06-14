@@ -5,7 +5,7 @@ const UsuarioController = require("../controller/usuario.controller")
 
 app.post('/loginUsuario',async function (req, res)
 {
-    //console.log(req.body)
+    console.log(req.body)
 
     try{
         var datos = await UsuarioController.readControllerLoginUsuario(req.body.empresa,req.body.usuario,req.body.password)

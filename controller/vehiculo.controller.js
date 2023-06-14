@@ -14,6 +14,11 @@ class VehiculoController
     static async insertGastoVehiculoModel(placa,precio,fecha,factura,foto){
         return await VehiculoModel.insertGastoVehiculoModel(placa,precio,fecha,factura,foto)
     }
+
+    static async readVehiculoUsuarioEmpresaAllController(user_code)
+    {
+        return await VehiculoModel.readVehiculoUsuarioEmpresaAllModel(user_code)
+    }
 }
 
 module.exports = VehiculoController
