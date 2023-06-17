@@ -28,7 +28,7 @@ app.post('/register_gasto_vehiculo',JWT.veriJwt,async function(req,res)
 
     try {
         var bandera = await VehiculoController.insertGastoVehiculoModel(req.body.placa,req.body.precio,req.body.fecha,
-            req.body.factura,req.body.foto);
+            req.body.factura,req.body.foto,req.body.KmCarga);
 
         res.status(200).json({
             status_code: bandera ? 200 : 400,

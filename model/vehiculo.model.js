@@ -29,13 +29,13 @@ class VehiculoModel
         }
     }
 
-    static async insertGastoVehiculoModel(placa,precio,fecha,factura,foto)
+    static async insertGastoVehiculoModel(placa,precio,fecha,factura,foto,KmCarga)
     {
         try{
             var conn = await connDB().promise()
             var sql = "insert into gastos_vehicular(FK_PlacaVehicular, ValorGastoVehicular, FechaProximoServicio, " +
-                "NumeroTicketGastoVehicular,FotoTicketGastoVehicular) VALUES " +
-                "('"+placa+"',"+precio+",'"+fecha+"','"+factura+"','"+foto+"');"
+                "NumeroTicketGastoVehicular,FotoTicketGastoVehicular,KmCarga) VALUES " +
+                "('"+placa+"',"+precio+",'"+fecha+"','"+factura+"','"+foto+"',"+KmCarga+");"
             var datos = await conn.query(sql)
             await conn.end()
             return true

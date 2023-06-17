@@ -11,8 +11,8 @@ class VehiculoController
         return await VehiculoModel.readVehiculoSucursalEmpresaModel(empresa_code,sucursal_code)
     }
 
-    static async insertGastoVehiculoModel(placa,precio,fecha,factura,foto){
-        return await VehiculoModel.insertGastoVehiculoModel(placa,precio,fecha,factura,foto)
+    static async insertGastoVehiculoModel(placa,precio,fecha,factura,foto,KmCarga){
+        return await VehiculoModel.insertGastoVehiculoModel(placa,precio,fecha,factura,foto,KmCarga)
     }
 
     static async readVehiculoUsuarioEmpresaAllController(user_code)
