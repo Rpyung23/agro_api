@@ -107,7 +107,7 @@ create table gastos_vehicular(CodeGastoVehicular int primary key auto_increment,
                               FechaProximoServicio datetime comment 'esta fecha se guarda cuando se envia la fecha de registro de la factura',
                               NumeroTicketGastoVehicular varchar(250) not null,
                               FotoTicketGastoVehicular longtext);
-alter table gastos_vehicular add column KmCarga int default 0;
+alter table gastos_vehicular add column KmCarga decimal(10,2) default 0;
 alter table gastos_vehicular add constraint rel_gasto_vehicular_vehiculo foreign key gastos_vehicular(FK_PlacaVehicular)
                              references vehiculo(PlacaVehiculo);
 
@@ -262,5 +262,4 @@ call registerSucursalUserAdmin('admin01@gmail.com','0604666982001','SUCURSAL 100
 
 
 use agro;
-
-select gastos_vehicular.KmCarga from gastos_vehicular;
+select * from sucursales;

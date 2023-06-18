@@ -5,7 +5,7 @@ const app = express()
 
 app.post('/create_sucursal',JWT.veriJwt,async function (req, res)
 {
-    //console.log(req.body.decoded)
+    console.log(req.body)
     try {
         var result = await SucursalController.registerSucursalController(req.body.decoded.code_usuario,
             req.body.decoded.empresa,req.body.name,req.body.direc,

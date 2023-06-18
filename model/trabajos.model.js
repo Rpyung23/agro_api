@@ -80,7 +80,7 @@ class TrabajosModel
             var conn = await connDB().promise()
             var sql = "select T.idTrabajo,T.NameTrabajo,convert(T.fechaInicio,char(150)) fechaInicio," +
                 "convert(T.fechaFin,char(150)) fechaFin,convert(T.fechaLimite,char(150)) fechaLimite,T.FKEstadoTrabajo," +
-                "ET.detalle,S.NombreSucursal from trabajos as T inner join estado_trabajo as ET on " +
+                "ET.detalle,S.NombreSucursal,T.Fk_Sucursal from trabajos as T inner join estado_trabajo as ET on " +
                 "T.FKEstadoTrabajo = ET.idEstadoTrabajo inner join sucursales as S on S.Code_Sucursal = T.Fk_Sucursal " +
                 "inner join usuario_admin_sucursal as UAS on UAS.FK_Code_Sucursal = S.Code_Sucursal where " +
                 "UAS.FK_CodigoUsuarioAdmin = '"+codeUsuario+"' order by T.Fk_Sucursal asc"
@@ -92,6 +92,24 @@ class TrabajosModel
         }
     }
 
+
+    static async updateTrabajoModel(idTrabajo,NameTrabajo,Fk_Sucursal,FKEstadoTrabajo,fechaInicio,fechaLimite,fechaFin)
+    {
+        try{
+            var conn = await connDB().promise()
+            var sql = "update trabajos set NameTrabajo = '"+NameTrabajo+"',Fk_Sucursal= "+Fk_Sucursal+",FKEstadoTrabajo="+FKEstadoTrabajo+"," +
+                "fechaInicio='"+fechaInicio+"',fechaLimite='"+fechaLimite+"',fechaFin='"+fechaFin+"' where idTrabajo = "+idTrabajo
+            console.log(sql)
+            await conn.query(sql)
+            await conn.end()
+            return true
+        }catch (e) {
+            console.log(e)
+            return false
+        }
+
+
+    }
 
 }
 

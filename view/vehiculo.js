@@ -25,7 +25,7 @@ app.post('/register_vehiculo',JWT.veriJwt,async function(req,res)
 
 app.post('/register_gasto_vehiculo',JWT.veriJwt,async function(req,res)
 {
-
+    console.log(req.body)
     try {
         var bandera = await VehiculoController.insertGastoVehiculoModel(req.body.placa,req.body.precio,req.body.fecha,
             req.body.factura,req.body.foto,req.body.KmCarga);

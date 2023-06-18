@@ -24,6 +24,11 @@ class TrabajoController
     static async readTrabajoUsuariosController(codeUsuario){
         return await TrabajosModel.readTrabajoUsuariosModel(codeUsuario)
     }
+
+    static async updateTrabajoController(idTrabajo,NameTrabajo,Fk_Sucursal,FKEstadoTrabajo,fechaInicio,fechaLimite,fechaFin){
+        return await TrabajosModel.updateTrabajoModel(idTrabajo,NameTrabajo,Fk_Sucursal,FKEstadoTrabajo,fechaInicio,fechaLimite,fechaFin)
+    }
+
 }
 
 module.exports = TrabajoController

@@ -88,6 +88,27 @@ app.post('/trabajos_usuarios_all',JWT.veriJwt,async function(req,res)
 
 })
 
+app.put('/update_trabajo',JWT.veriJwt,async function(req,res)
+{
 
+    console.log(req.body)
+
+    try {
+        var response = await TrabajoController.updateTrabajoController(req.body.idTrabajo,req.body.NameTrabajo,
+            req.body.Fk_Sucursal,req.body.FKEstadoTrabajo,req.body.fechaInicio,req.body.fechaLimite,req.body.fechaFin)
+
+        res.status(200).json({
+            status_code: response ?  200 : 400,
+            msm : response ?  'Trabajo actualizado con éxito' : 'No se pudo actualizar'
+        })
+    }catch (e) {
+        res.status(200).json({
+            status_code: 400,
+            msm : e.toString()
+        })
+    }
+
+
+})
 
 module.exports = app
