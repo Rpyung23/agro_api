@@ -68,6 +68,23 @@ class EmpleadoModel
         }
     }
 
+    static async insertAsistenciaModel(FKCodigoEmpleado, fechaIngreso, fechaSalida,fotoHistorialEmpleado,
+                                       notaHistorialEmpleado, idTipoPermiso, fechaHistorialPermiso)
+    {
+        try {
+            var conn = await connDB().promise()
+            var sql = "insert into historial_empleado(FKCodigoEmpleado, fechaIngreso, fechaSalida, " +
+                "fotoHistorialEmpleado,notaHistorialEmpleado, idTipoPermiso, fechaHistorialPermiso) " +
+                "values('"+FKCodigoEmpleado+"','"+fechaIngreso+"','"+fechaSalida+"','"+fotoHistorialEmpleado+"','"+notaHistorialEmpleado+"'," +
+                ""+idTipoPermiso+",'"+fechaHistorialPermiso+"');"
+            await conn.query(sql)
+            return true
+        }catch (e) {
+            console.log(e)
+        }
+        return false
+    }
+
 }
 
 module.exports = EmpleadoModel

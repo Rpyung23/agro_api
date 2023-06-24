@@ -76,6 +76,33 @@ class GastoModel
         }
     }
 
+
+    static async readModelGastoFechaSucursalModel(sucursal,email,fechaI,fechaF)
+    {
+        var sqlRanchos = ""
+
+        if(Array.isArray(sucursal))
+        {
+            sqlRanchos = "and IAS.FK_Code_Sucursal in ("+sucursal+")"
+        }
+
+        try{
+            var conn = await connDB().promise()
+            var sql = "select G.CodeGasto,convert(date(G.DateTimeRegistroGasto),char(150)) DateTimeRegistroGasto," +
+                "G.NombreGasto,G.CodigoFactura,G.QRealizo,G.cantidad,S.NombreSucursal from gastos as G " +
+                "inner join usuario_admin_sucursal as IAS on G.FK_CodeSucursal = IAS.FK_Code_Sucursal " +
+                "inner join sucursales as S on IAS.FK_Code_Sucursal = S.Code_Sucursal where " +
+                "date(G.DateTimeRegistroGasto) between '"+fechaI+"' and '"+fechaF+"' " +
+                "and IAS.FK_CodigoUsuarioAdmin = 'admin01@gmail.com' "+sqlRanchos
+
+            var datos = await  conn.query(sql)
+            await conn.end()
+            return datos[0]
+        }catch (e) {
+            console.log(e)
+            return []
+        }
+    }
 }
 
 module.exports = GastoModel

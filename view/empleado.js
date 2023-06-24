@@ -83,4 +83,24 @@ app.post("/read_empleado_all_usuario_admin",JWT.veriJwt,async function(req,res)
     }
 })
 
+
+app.post("/empleado_asistencia",JWT.veriJwt,async function(req,res)
+{
+    try{
+        var response = await EmpleadoController.insertAsistenciaController(req.body.empleado,
+            req.body.fechaIngreso, req.body.fechaSalida,req.body.fotoHistorialEmpleado,
+            req.body.notaHistorialEmpleado, req.body.idTipoPermiso, req.body.fechaHistorialPermiso)
+
+        res.status(200).json({
+            status_code : response ? 200 : 400,
+            msm : response ? 'Asistencia registrado con éxito' : 'No se ha podido registrar la Asistencia'
+        })
+    }catch (e) {
+        res.status(200).json({
+            status_code : 400,
+            msm : e.toString()
+        })
+    }
+})
+
 module.exports = app

@@ -21,6 +21,10 @@ class IngresoController
         return await IngresoModel.readModelIngresoFechaModel(empresa,sucursal,fechaI,fechaF)
     }
 
+    static async readModelIngresoFechaSucursalController(sucursal,email,fechaI,fechaF){
+        return await  IngresoModel.readModelIngresoFechaSucursalModel(sucursal,email,fechaI,fechaF)
+    }
+
 }
 
 module.exports = IngresoController

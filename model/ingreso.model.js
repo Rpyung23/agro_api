@@ -74,6 +74,32 @@ class IngresoModel
         }
     }
 
+    static async readModelIngresoFechaSucursalModel(sucursal,email,fechaI,fechaF)
+    {
+        var sqlRanchos = ""
+
+        if(Array.isArray(sucursal))
+        {
+            sqlRanchos = "and IAS.FK_Code_Sucursal in ("+sucursal+")"
+        }
+
+        try{
+            var conn = await connDB().promise()
+            var sql = "select I.CodigoIngreso,convert(date(I.FechaCreacionIngreso),char(150)) FechaCreacionIngreso," +
+                "I.NotaIngreso,I.CantidadIngreso,S.NombreSucursal from ingresos as I " +
+                "inner join usuario_admin_sucursal as IAS on I.FK_Code_Sucursal = IAS.FK_Code_Sucursal " +
+                "inner join sucursales as S on IAS.FK_Code_Sucursal = S.Code_Sucursal where " +
+                "date(I.FechaCreacionIngreso) between '"+fechaI+"' and '"+fechaF+"' " +
+                "and IAS.FK_CodigoUsuarioAdmin = 'admin01@gmail.com' and I.EstadoIngreso = 1 "+sqlRanchos
+
+            var datos = await  conn.query(sql)
+            await conn.end()
+            return datos[0]
+        }catch (e) {
+            console.log(e)
+            return []
+        }
+    }
 }
 
 module.exports = IngresoModel

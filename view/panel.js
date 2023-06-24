@@ -38,6 +38,7 @@ app.post('/panel_usuario_empresa',JWT.veriJwt,async function (req, res)
             trabajoPen: trabajos.pendiente
         })
     }catch (e) {
+        console.log(e)
         res.status(200).json({
             status_code:400,
             msm: e.toString(),

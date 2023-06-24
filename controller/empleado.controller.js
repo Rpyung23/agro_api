@@ -18,6 +18,13 @@ class EmpleadoController
     static async readEmpleadoAllUserController(usuario_admin){
         return await EmpleadoModel.readEmpleadoAllUserModel(usuario_admin)
     }
+
+    static async insertAsistenciaController(FKCodigoEmpleado, fechaIngreso, fechaSalida,fotoHistorialEmpleado,
+                                       notaHistorialEmpleado, idTipoPermiso, fechaHistorialPermiso){
+        return await EmpleadoModel.insertAsistenciaModel(FKCodigoEmpleado, fechaIngreso, fechaSalida,fotoHistorialEmpleado,
+            notaHistorialEmpleado, idTipoPermiso, fechaHistorialPermiso)
+    }
+
 }
 
 module.exports = EmpleadoController

@@ -110,7 +110,12 @@ create table gastos_vehicular(CodeGastoVehicular int primary key auto_increment,
 alter table gastos_vehicular add column KmCarga decimal(10,2) default 0;
 alter table gastos_vehicular add constraint rel_gasto_vehicular_vehiculo foreign key gastos_vehicular(FK_PlacaVehicular)
                              references vehiculo(PlacaVehiculo);
-
+create table if not exists historial_empleado(idHistorialEmpleado int auto_increment primary key,
+                           FKCodigoEmpleado varchar(50) null,fechaRegistro datetime default now(),fechaIngreso datetime default now(),fechaSalida datetime default now(),
+                           fotoHistorialEmpleado text,notaHistorialEmpleado text,idTipoPermiso smallint(2) comment '1 -> Emfermedad , 2 -> permiso',
+                           fechaHistorialPermiso datetime default now());
+alter table historial_empleado add constraint rel_historial_empleado_empleado foreign key historial_empleado(FKCodigoEmpleado)
+    references empleados(CodigoEmpleado);
 
 /*** DE AQUI NINGUNA SENTENCIA SE EJECUTO **/
 
@@ -262,4 +267,7 @@ call registerSucursalUserAdmin('admin01@gmail.com','0604666982001','SUCURSAL 100
 
 
 use agro;
-select * from sucursales;
+select * from empleados;
+select * from historial_empleado;
+
+
