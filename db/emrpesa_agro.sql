@@ -267,7 +267,9 @@ call registerSucursalUserAdmin('admin01@gmail.com','0604666982001','SUCURSAL 100
 
 
 use agro;
-select * from empleados;
 select * from historial_empleado;
+select table2.asistentes,table2.totEmpleados,ABS((table2.totEmpleados-table2.asistentes)) ausentes from (select count(table1.CodigoEmpleado) totEmpleados,if(ISNULL(table1.FKCodigoEmpleado),0,count(table1.FKCodigoEmpleado)) asistentes from (select E.CodigoEmpleado,HE.FKCodigoEmpleado from empleados as E left join historial_empleado as HE
+       on HE.FKCodigoEmpleado = E.CodigoEmpleado left join usuario_admin_sucursal as UAS on UAS.FK_Code_Sucursal = E.FK_CodigoSucursal
+       where E.EstadoEmpleado = 1 and UAS.FK_CodigoUsuarioAdmin  = 'admin01@gmail.com' group by E.CodigoEmpleado) as table1) as table2;
 
 
