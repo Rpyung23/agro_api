@@ -86,6 +86,8 @@ app.post("/read_empleado_all_usuario_admin",JWT.veriJwt,async function(req,res)
 
 app.post("/empleado_asistencia",JWT.veriJwt,async function(req,res)
 {
+    console.log(req.body)
+
     try{
         var response = await EmpleadoController.insertAsistenciaController(req.body.empleado,
             req.body.fechaIngreso, req.body.fechaSalida,req.body.fotoHistorialEmpleado,

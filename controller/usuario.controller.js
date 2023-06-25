@@ -7,6 +7,10 @@ class UsuarioController {
     static async readModelEmpleadosPanelController(usuario){
         return await UsuarioModel.readModelEmpleadosPanelModel(usuario)
     }
+
+    static async readModelAllAsistenciaController(usuario){
+        return await UsuarioModel.readModelAllAsistenciaModel(usuario)
+    }
 }
 
 module.exports = UsuarioController

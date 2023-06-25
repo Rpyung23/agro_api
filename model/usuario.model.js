@@ -34,6 +34,26 @@ class UsuarioModel
     }
 
 
+    static async readModelAllAsistenciaModel(usuario)
+    {
+        try{
+            var conn = await connDB().promise()
+            var sql = "select E.CodigoEmpleado,E.NombresApellidosEmpleado,UAS.FK_Code_Sucursal,S.NombreSucursal," +
+                "convert(HE.fechaIngreso,char(150)) fechaIngreso,convert(HE.fechaSalida,char(150)) fechaSalida," +
+                "concat(TIMESTAMPDIFF(HOUR,HE.fechaIngreso,HE.fechaSalida),':',TIMESTAMPDIFF(MINUTE, HE.fechaIngreso, HE.fechaSalida) % 60) HLaborables from empleados as E inner join historial_empleado as HE " +
+                "on HE.FKCodigoEmpleado = E.CodigoEmpleado and date(HE.fechaIngreso)  = date(now()) inner join usuario_admin_sucursal as UAS " +
+                "on UAS.FK_Code_Sucursal = E.FK_CodigoSucursal inner join sucursales as S on UAS.FK_Code_Sucursal = S.Code_Sucursal " +
+                "where E.EstadoEmpleado = 1 and UAS.FK_CodigoUsuarioAdmin  = '"+usuario+"' group by E.CodigoEmpleado"
+            var datos = await conn.query(sql)
+            //console.log(sql)
+            return datos[0]
+        }catch (e) {
+            console.log(e)
+            return null
+        }
+    }
+
+
 }
 
 module.exports = UsuarioModel

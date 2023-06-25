@@ -3,6 +3,8 @@ const app = express()
 const Jwt = require("../config/jwt")
 const UsuarioController = require("../controller/usuario.controller")
 
+
+
 app.post('/loginUsuario',async function (req, res)
 {
     console.log(req.body)
@@ -22,6 +24,27 @@ app.post('/loginUsuario',async function (req, res)
             status_code:400,
             datos:[],
             msm:e.toString()
+        })
+    }
+})
+
+
+
+app.post('/list_asistencia',Jwt.veriJwt,async function (req, res)
+{
+
+    try {
+        var result = await UsuarioController.readModelAllAsistenciaController(req.body.decoded.code_usuario)
+        res.status(200).json({
+            status_code:result.length > 0 ? 200 : 300,
+            msm: result.length > 0 ? 'Asistencia listas' : 'Sin Asistencia',
+            data: result
+        })
+    }catch (e) {
+        res.status(200).json({
+            status_code: 400,
+            msm: e.toString(),
+            data:[]
         })
     }
 })
