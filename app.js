@@ -20,6 +20,7 @@ const gasto  = require("./view/gasto")
 const vehiculo  = require("./view/vehiculo")
 const trabajo  = require("./view/trabajo")
 const empleado  = require("./view/empleado")
+const sueldo = require("./view/sueldo")
 /********/
 
 app.use(empresa)
@@ -32,6 +33,7 @@ app.use(gasto)
 app.use(vehiculo)
 app.use(trabajo)
 app.use(empleado)
+app.use(sueldo)
 app.listen(process.env.PORT,()=>{
     console.log("SERVER LISTEN "+process.env.PORT)
 })

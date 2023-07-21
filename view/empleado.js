@@ -8,7 +8,7 @@ app.post("/create_empleado",JWT.veriJwt,async function(req,res)
     try{
         var response = await EmpleadoController.insertNewEmpleadoController(req.body.CodigoEmpleado,
             req.body.NombresApellidosEmpleado, req.body.DirEmpleado, req.body.TelefonoEmpleado,
-            req.body.EmailEmpleado,req.body.FotoEmpleado, req.body.sucursal)
+            req.body.EmailEmpleado,req.body.FotoEmpleado, req.body.sucursal,req.body.salario_semanal)
 
         res.status(200).json({
             status_code : response ? 200 : 400,

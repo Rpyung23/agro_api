@@ -268,11 +268,3 @@ call registerSucursalUserAdmin('admin01@gmail.com','0604666982001','SUCURSAL 100
 
 use agro;
 select * from historial_empleado;
-select E.CodigoEmpleado,E.NombresApellidosEmpleado,UAS.FK_Code_Sucursal,S.NombreSucursal,convert(HE.fechaIngreso,char(150)) fechaIngreso,
-       convert(HE.fechaSalida,char(150)) fechaSalida,TIMESTAMPDIFF(HOUR,HE.fechaIngreso,HE.fechaSalida) HLaborables
-       from empleados as E left join historial_empleado as HE
-       on HE.FKCodigoEmpleado = E.CodigoEmpleado and date(HE.fechaIngreso)  = date(now()) left join usuario_admin_sucursal as UAS on UAS.FK_Code_Sucursal = E.FK_CodigoSucursal
-       left join sucursales as S on UAS.FK_Code_Sucursal = S.Code_Sucursal
-       where E.EstadoEmpleado = 1 and UAS.FK_CodigoUsuarioAdmin  = 'admin01@gmail.com' group by E.CodigoEmpleado
-
-

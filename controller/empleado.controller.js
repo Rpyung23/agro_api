@@ -2,9 +2,9 @@ const EmpleadoModel = require("../model/empleado.model")
 class EmpleadoController
 {
     static async insertNewEmpleadoController(CodigoEmpleado, NombresApellidosEmpleado, DirEmpleado, TelefonoEmpleado,
-                                             EmailEmpleado,FotoEmpleado, sucursal){
+                                             EmailEmpleado,FotoEmpleado, sucursal,salario_semanal){
         return await EmpleadoModel.insertNewEmpleadoModel(CodigoEmpleado, NombresApellidosEmpleado, DirEmpleado, TelefonoEmpleado,
-            EmailEmpleado,FotoEmpleado, sucursal)
+            EmailEmpleado,FotoEmpleado, sucursal,salario_semanal)
     }
 
     static async readEmpleadoSucursalController(sucursal){
