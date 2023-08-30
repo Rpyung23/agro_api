@@ -267,4 +267,4 @@ call registerSucursalUserAdmin('admin01@gmail.com','0604666982001','SUCURSAL 100
 
 
 use agro;
-select * from historial_empleado;
+select * from usuario_admin;
