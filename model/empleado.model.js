@@ -9,6 +9,7 @@ class EmpleadoModel
            var sql = "insert into empleados(CodigoEmpleado, NombresApellidosEmpleado, DirEmpleado, TelefonoEmpleado, EmailEmpleado," +
                "FotoEmpleado, FK_CodigoSucursal,salario_semanal,salario_diario) VALUES ('"+CodigoEmpleado+"','"+NombresApellidosEmpleado+"'," +
                "'"+DirEmpleado+"','"+TelefonoEmpleado+"','"+EmailEmpleado+"','"+FotoEmpleado+"',"+sucursal+","+(salario_semanal == undefined ? 0 : salario_semanal)+","+salario_semanal == undefined ? 0 : parseFloat(salario_semanal/6)+");"
+           console.log(sql)
 
            await conn.query(sql)
            await conn.end()
