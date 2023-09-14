@@ -62,4 +62,23 @@ app.post("/gasto_fecha_sucursal",JWT.veriJwt,async function(req,res)
     }
 })
 
+
+app.post("/lista_ultimos_gastos",JWT.veriJwt,async function(req,res)
+{
+    try{
+        var response = await GastoController.readListUltimoGastoController(req.body.decoded.code_usuario)
+
+        res.status(200).json({
+            status_code: response.length > 0 ? 200 : 300 ,
+            datos: response.length > 0 ? response : []
+        })
+    }catch (e) {
+        console.log(e)
+        res.status(200).json({
+            status_code: 400 ,
+            datos:[]
+        })
+    }
+})
+
 module.exports = app

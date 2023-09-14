@@ -25,6 +25,10 @@ class GastoController
         return await  GastoModel.readModelGastoFechaSucursalModel(sucursal,email,fechaI,fechaF)
     }
 
+    static async readListUltimoGastoController(email){
+        return await GastoModel.readListUltimoGastoModel(email)
+    }
+
 }
 
 module.exports = GastoController
