@@ -25,6 +25,11 @@ class IngresoController
         return await  IngresoModel.readModelIngresoFechaSucursalModel(sucursal,email,fechaI,fechaF)
     }
 
+    static async readListUltimoIngresoController(email)
+    {
+        return await IngresoModel.readListUltimoIngresoModel(email)
+    }
+
 }
 
 module.exports = IngresoController

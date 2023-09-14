@@ -2,7 +2,6 @@ const express = require("express")
 const app = express()
 const JWT = require("../config/jwt")
 const IngresoController = require("../controller/ingreso.controller")
-const GastoController = require("../controller/gasto.controller");
 
 app.post('/create_ingreso',JWT.veriJwt,async function(req,res)
 {
@@ -48,6 +47,25 @@ app.post("/ingreso_fecha_sucursal",JWT.veriJwt,async function(req,res)
     try{
         var response = await IngresoController.readModelIngresoFechaSucursalController(req.body.sucursal,
             req.body.decoded.code_usuario,req.body.fechaI,req.body.fechaF)
+
+        res.status(200).json({
+            status_code: response.length > 0 ? 200 : 300 ,
+            datos: response.length > 0 ? response : []
+        })
+    }catch (e) {
+        console.log(e)
+        res.status(200).json({
+            status_code: 400 ,
+            datos:[]
+        })
+    }
+})
+
+
+app.post("/lista_ultimos_ingresos",JWT.veriJwt,async function(req,res)
+{
+    try{
+        var response = await IngresoController.readListUltimoIngresoController(req.body.decoded.code_usuario)
 
         res.status(200).json({
             status_code: response.length > 0 ? 200 : 300 ,
