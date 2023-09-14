@@ -126,12 +126,6 @@ alter table gastos add constraint rel_gatos_proveedor foreign key gastos(FK_Codi
 
 alter table ingresos add constraint rel_ingresos_sucursal foreign key ingresos(FK_Code_Sucursal) references sucursales(Code_Sucursal);
 
-
-
-
-
-
-
 /*************************************************************************************************************************/
 
 /***** SELECT ***/

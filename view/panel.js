@@ -33,6 +33,7 @@ app.post('/panel_usuario_empresa',JWT.veriJwt,async function (req, res)
             cinco_gastos: gastoCinco,
             panel_gasto: gastoPanel,
             panel_ingreso: ingresoPanel,
+            panel_total_gato: (parseFloat(ingresoPanel) - parseFloat(gastoPanel)),
             empleados:{
                 ausentes: objEmpleado.ausentes,
                 faltantes: objEmpleado.totEmpleados,
