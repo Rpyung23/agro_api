@@ -33,12 +33,12 @@ app.post('/panel_usuario_empresa',JWT.veriJwt,async function (req, res)
             cinco_gastos: gastoCinco,
             panel_gasto: gastoPanel,
             panel_ingreso: ingresoPanel,
-            panel_total_gato: (parseFloat(ingresoPanel) - parseFloat(gastoPanel)),
+            panel_total_gato: (parseFloat(ingresoPanel.replace(/[,]/g, "")) - parseFloat(gastoPanel.replace(/[,]/g, ""))).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
             empleados:{
-                ausentes: objEmpleado.ausentes,
+            ausentes: objEmpleado.ausentes,
                 faltantes: objEmpleado.totEmpleados,
                 presentes: objEmpleado.asistentes
-            },
+        },
             trabajoPen: trabajos.pendiente
         })
     }catch (e) {
