@@ -65,6 +65,23 @@ class VehiculoModel
         }
     }
 
+
+    static async readHistorialControlVehicularModel(placa)
+    {
+        try {
+            var conn = await connDB().promise()
+            var sql = "select GV.FK_PlacaVehicular,GV.ValorGastoVehicular," +
+                "convert(date(GV.FechaProximoServicio),char(150)) FechaProximoServicio,GV.KmCarga " +
+                "from gastos_vehicular as GV where GV.FK_PlacaVehicular = '"+placa+"'"
+            var data = await conn.query(sql)
+            await conn.end()
+            return data[0]
+        }catch (e) {
+            console.log(e)
+            return []
+        }
+    }
+
 }
 
 module.exports = VehiculoModel

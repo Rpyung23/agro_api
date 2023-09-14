@@ -19,6 +19,10 @@ class VehiculoController
     {
         return await VehiculoModel.readVehiculoUsuarioEmpresaAllModel(user_code)
     }
+
+    static async readHistorialControlVehicularController(placa){
+        return await  VehiculoModel.readHistorialControlVehicularModel(placa)
+    }
 }
 
 module.exports = VehiculoController

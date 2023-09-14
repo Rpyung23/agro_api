@@ -84,5 +84,23 @@ app.post('/read_vehiculo_user',JWT.veriJwt,async function(req,res)
     }
 });
 
+app.post('/history_vehiculo',JWT.veriJwt,async function(req,res)
+{
+    try {
+        var bandera = await VehiculoController.readHistorialControlVehicularController(req.body.placa);
+
+        res.status(200).json({
+            status_code: bandera.length > 0 ? 200 : 300,
+            msm: bandera.length > 0 ? 'Datos consultados' : 'Sin datos',
+            datos: bandera
+        })
+    }catch (e) {
+        res.status(200).json({
+            status_code: 400,
+            msm: e.toString(),
+            datos:[]
+        })
+    }
+});
 
 module.exports = app
