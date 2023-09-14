@@ -70,7 +70,7 @@ class VehiculoModel
     {
         try {
             var conn = await connDB().promise()
-            var sql = "select GV.FK_PlacaVehicular,GV.ValorGastoVehicular," +
+            var sql = "select GV.FK_PlacaVehicular,format(GV.ValorGastoVehicular,2) ValorGastoVehicular," +
                 "convert(date(GV.FechaProximoServicio),char(150)) FechaProximoServicio,GV.KmCarga " +
                 "from gastos_vehicular as GV where GV.FK_PlacaVehicular = '"+placa+"'"
             var data = await conn.query(sql)
