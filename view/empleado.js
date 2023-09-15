@@ -105,4 +105,25 @@ app.post("/empleado_asistencia",JWT.veriJwt,async function(req,res)
     }
 })
 
+
+app.post("/history_empleado_sucursal",JWT.veriJwt,async function(req,res)
+{
+    try{
+        var response = await EmpleadoController.readHistorialController(req.body.empleado)
+
+        res.status(200).json({
+            status_code : response.length > 0 ? 200 : 300,
+            datos: response,
+            msm : response.length > 0 ? 'Empleados encontrados' : 'Sin empleados'
+        })
+    }catch (e) {
+        res.status(200).json({
+            status_code : 400,
+            datos: [],
+            msm : e.toString()
+        })
+    }
+})
+
+
 module.exports = app

@@ -86,6 +86,27 @@ class EmpleadoModel
         return false
     }
 
+
+    static async readHistorialModel(empleado)
+    {
+        try {
+            var conn = await connDB().promise()
+            var sql = "select HE.FKCodigoEmpleado,E.NombresApellidosEmpleado,S.NombreSucursal," +
+                "convert(date(HE.fechaIngreso),char(150)) fechaIngreso,convert(date(HE.fechaSalida),char(150)) fechaSalida," +
+                "HE.idHistorialEmpleado,format(HE.salario_ganado,2) salario_ganado_string,HE.salario_ganado from historial_empleado as HE inner join " +
+                "empleados as E on HE.FKCodigoEmpleado = E.CodigoEmpleado inner join sucursales as S " +
+                "on E.FK_CodigoSucursal = S.Code_Sucursal inner join usuario_admin_sucursal as UA on " +
+                "UA.FK_Code_Sucursal = S.Code_Sucursal where HE.is_cobrado = 0 and HE.FKCodigoEmpleado = '"+empleado+"'"
+            //console.log(sql)
+            var data = await conn.query(sql)
+            await conn.end()
+            return data[0]
+        }catch (e) {
+            console.log(e)
+            return []
+        }
+    }
+
 }
 
 module.exports = EmpleadoModel

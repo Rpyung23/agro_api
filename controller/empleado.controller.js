@@ -25,6 +25,10 @@ class EmpleadoController
             notaHistorialEmpleado, idTipoPermiso, fechaHistorialPermiso)
     }
 
+    static async readHistorialController(empleado){
+        return await  EmpleadoModel.readHistorialModel(empleado)
+    }
+
 }
 
 module.exports = EmpleadoController
