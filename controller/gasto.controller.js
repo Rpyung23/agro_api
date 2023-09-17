@@ -1,14 +1,14 @@
 const GastoModel = require('../model/gasto.model')
 class GastoController
 {
-    static async readUltimo5GastoUsuarioController(empresa,usuario)
+    static async readUltimo5GastoUsuarioController(empresa,usuario,sucursal)
     {
-       return await GastoModel.readUltimo5GastoUsuarioModel(empresa,usuario)
+       return await GastoModel.readUltimo5GastoUsuarioModel(empresa,usuario,sucursal)
     }
 
-    static async readGastoUsuarioController(empresa,usuario)
+    static async readGastoUsuarioController(empresa,usuario,sucursal)
     {
-        return await GastoModel.readGastoUsuarioModel(empresa,usuario)
+        return await GastoModel.readGastoUsuarioModel(empresa,usuario,sucursal)
     }
 
     static async insertGastoUsuarioController(NombreGasto, FK_CodigoProveedor, cantidad, CodigoFactura, NotaFactura, QRealizo,

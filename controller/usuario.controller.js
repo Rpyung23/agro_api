@@ -4,8 +4,8 @@ class UsuarioController {
         return await UsuarioModel.readModelLoginUsuario(empresa,usuario,pass)
     }
 
-    static async readModelEmpleadosPanelController(usuario){
-        return await UsuarioModel.readModelEmpleadosPanelModel(usuario)
+    static async readModelEmpleadosPanelController(usuario,sucursal){
+        return await UsuarioModel.readModelEmpleadosPanelModel(usuario,sucursal)
     }
 
     static async readModelAllAsistenciaController(usuario){

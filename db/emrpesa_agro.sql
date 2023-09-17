@@ -183,6 +183,8 @@ insert into estado_trabajo(detalle) values ('Pendiente');
 insert into estado_trabajo(detalle) values ('En Proceso');
 insert into estado_trabajo(detalle) values ('Finalizado');
 
+alter table ingresos add column tipo_ingreso smallint(1) default 1 comment '1-> ingreso normal.... 2-> ingreso administrativo';
+
 
 -- procedimientos para por defecto
 
@@ -255,10 +257,5 @@ begin
 end;
 
 
-call registerProveedor('0604666982001','PRO',
-    '4pjjjj','44444','dsasd','6546546','asd');
-call registerSucursalUserAdmin('admin01@gmail.com','0604666982001','SUCURSAL 100','','');
-
-
 use agro;
-select * from usuario_admin;
+select FK_Code_Sucursal from usuario_admin_sucursal where '19';

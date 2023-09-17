@@ -1,14 +1,14 @@
 const IngresoModel = require('../model/ingreso.model')
 class IngresoController
 {
-    static async readUltimo5IngresoUsuarioController(empresa,usuario)
+    static async readUltimo5IngresoUsuarioController(empresa,usuario,sucursal)
     {
-       return await IngresoModel.readUltimo5IngresoUsuarioModel(empresa,usuario)
+       return await IngresoModel.readUltimo5IngresoUsuarioModel(empresa,usuario,sucursal)
     }
 
-    static async readIngresoUsuarioController(empresa,usuario)
+    static async readIngresoUsuarioController(empresa,usuario,sucursal)
     {
-        return await IngresoModel.readIngresoUsuarioModel(empresa,usuario)
+        return await IngresoModel.readIngresoUsuarioModel(empresa,usuario,sucursal)
     }
 
     static async insertIngresoController(NombreIngreso,usuario_code,sucursal_code,empresa,name_cliente,cantidad,nota,foto)

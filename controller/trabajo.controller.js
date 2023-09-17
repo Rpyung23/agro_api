@@ -1,9 +1,9 @@
 const TrabajosModel = require("../model/trabajos.model")
 class TrabajoController
 {
-    static async totalTodoTipoTrabajoEmpresaControlle(empresa,usuario)
+    static async totalTodoTipoTrabajoEmpresaControlle(empresa,usuario,sucursal)
     {
-        return await TrabajosModel.totalTodoTipoTrabajoEmpresaModel(empresa,usuario)
+        return await TrabajosModel.totalTodoTipoTrabajoEmpresaModel(empresa,usuario,sucursal)
     }
 
     static async insertTrabajoController(NameTrabajo, Fk_Sucursal, empresa, fotoTrabajo, fechaInicio, fechaFin,

@@ -10,21 +10,24 @@ app.post('/panel_usuario_empresa',JWT.veriJwt,async function (req, res)
 {
     //console.log(req.body.decoded)
     try {
+
         var gastoCinco = await GastoController.readUltimo5GastoUsuarioController(req.body.decoded.empresa,
-            req.body.decoded.code_usuario)
+            req.body.decoded.code_usuario,req.body.sucursal)
+
         var ingresoCinco = await IngresoController.readUltimo5IngresoUsuarioController(req.body.decoded.empresa,
-            req.body.decoded.code_usuario)
+            req.body.decoded.code_usuario,req.body.sucursal)
 
         var gastoPanel = await GastoController.readGastoUsuarioController(req.body.decoded.empresa,
-            req.body.decoded.code_usuario)
+            req.body.decoded.code_usuario,req.body.sucursal)
 
         var ingresoPanel = await IngresoController.readIngresoUsuarioController(req.body.decoded.empresa,
-            req.body.decoded.code_usuario)
+            req.body.decoded.code_usuario,req.body.sucursal)
 
         var trabajos = await  TrabajoController.totalTodoTipoTrabajoEmpresaControlle(req.body.decoded.empresa,
-            req.body.decoded.code_usuario)
+            req.body.decoded.code_usuario,req.body.sucursal)
 
-        var objEmpleado  = await UsuarioController.readModelEmpleadosPanelController(req.body.decoded.code_usuario)
+        var objEmpleado  = await UsuarioController.readModelEmpleadosPanelController(req.body.decoded.code_usuario,
+            req.body.sucursal)
 
         res.status(200).json({
             status_code: 200,

@@ -1,7 +1,7 @@
 const connDB = require("../config/conn")
 class TrabajosModel
 {
-    static async totalTodoTipoTrabajoEmpresaModel(empresa,usuario)
+    static async totalTodoTipoTrabajoEmpresaModel(empresa,usuario,sucursal)
     {
         try{
             var conn = await connDB().promise()
@@ -10,7 +10,7 @@ class TrabajosModel
                 "COUNT(CASE WHEN T.FKEstadoTrabajo = 3 THEN T.idTrabajo END) as finalizado " +
                 "FROM trabajos AS T inner join sucursales as S on S.Code_Sucursal = T.Fk_Sucursal " +
                 "inner join usuario_admin_sucursal as US on T.Fk_Sucursal = US.FK_Code_Sucursal " +
-                "where Fk_Empresa = '"+empresa+"' and US.FK_CodigoUsuarioAdmin = '"+usuario+"'"
+                "where FK_Code_Sucursal = "+sucursal+" and Fk_Empresa = '"+empresa+"' and US.FK_CodigoUsuarioAdmin = '"+usuario+"'"
             var datos = await conn.query(sql)
             await conn.end()
             //console.log(datos[0][0])
