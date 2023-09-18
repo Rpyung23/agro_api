@@ -8,7 +8,7 @@ const UsuarioController = require("../controller/usuario.controller")
 const JWT = require("../config/jwt");
 app.post('/panel_usuario_empresa',JWT.veriJwt,async function (req, res)
 {
-    //console.log(req.body.decoded)
+    console.log(req.body.sucursal)
     try {
 
         var gastoCinco = await GastoController.readUltimo5GastoUsuarioController(req.body.decoded.empresa,
@@ -32,11 +32,11 @@ app.post('/panel_usuario_empresa',JWT.veriJwt,async function (req, res)
         res.status(200).json({
             status_code: 200,
             msm: 'Datos obtenidos con éxito',
-            cinco_ingresos: ingresoCinco,
-            cinco_gastos: gastoCinco,
-            panel_gasto: gastoPanel,
-            panel_ingreso: ingresoPanel,
-            panel_total_gato: (parseFloat(ingresoPanel.replace(/[,]/g, "")) - parseFloat(gastoPanel.replace(/[,]/g, ""))).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+            cinco_ingresos: ingresoCinco  == null ? '0.00' : ingresoCinco,
+            cinco_gastos: gastoCinco == null ? '0.00' : gastoCinco,
+            panel_gasto: gastoPanel == null ? '0.00' : gastoPanel,
+            panel_ingreso: ingresoPanel == null ? '0.00' : ingresoPanel,
+            panel_total_gato: (parseFloat(ingresoPanel == null ? '0.00' : ingresoPanel.replace(/[,]/g, "") ) - parseFloat(gastoPanel == null ? '0.00' : gastoPanel.replace(/[,]/g, ""))).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
             empleados:{
             ausentes: objEmpleado.ausentes,
                 faltantes: objEmpleado.totEmpleados,

@@ -8,7 +8,7 @@ class IngresoModel
             var conn = await  connDB().promise()
             var sql = "select FORMAT(CAST(sum(table1.ingreso) AS DECIMAL(10, 2)), 2) as ingreso from " +
                 "(select I.CantidadIngreso as ingreso from ingresos as I where " +
-                "FK_CodigoUsuarioAdmin = '"+usuario+"' and FK_CodeEmpresa = '"+empresa+"' and FK_Code_Sucursal = '"+sucursal+"' order by I.FechaCreacionIngreso desc limit 5) as table1;"
+                "FK_CodigoUsuarioAdmin = '"+usuario+"' and FK_CodeEmpresa = '"+empresa+"' and FK_Code_Sucursal = "+sucursal+" order by I.FechaCreacionIngreso desc limit 5) as table1;"
 
             console.log(sql)
 
@@ -26,7 +26,7 @@ class IngresoModel
         try{
             var conn = await  connDB().promise()
             var sql = "select FORMAT(CAST(sum(I.CantidadIngreso) AS DECIMAL(10, 2)), 2) as ingreso from ingresos as I " +
-                "where FK_CodigoUsuarioAdmin = '"+usuario+"' and FK_CodeEmpresa = '"+empresa+"' and FK_Code_Sucursal = '"+sucursal+"' order by I.FechaCreacionIngreso desc"
+                "where FK_CodigoUsuarioAdmin = '"+usuario+"' and FK_CodeEmpresa = '"+empresa+"' and FK_Code_Sucursal = "+sucursal+" order by I.FechaCreacionIngreso desc"
 
             var datos = await conn.query(sql)
             await conn.end()

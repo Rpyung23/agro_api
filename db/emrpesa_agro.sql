@@ -258,4 +258,5 @@ end;
 
 
 use agro;
-select FK_Code_Sucursal from usuario_admin_sucursal where '19';
+select * from sucursales;
+select * from ingresos where FK_Code_Sucursal = 20;

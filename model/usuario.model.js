@@ -25,7 +25,7 @@ class UsuarioModel
                 "on HE.FKCodigoEmpleado = E.CodigoEmpleado left join usuario_admin_sucursal as UAS on UAS.FK_Code_Sucursal = E.FK_CodigoSucursal " +
                 "where E.EstadoEmpleado = 1 and UAS.FK_CodigoUsuarioAdmin  = '"+usuario+"' and FK_Code_Sucursal = "+sucursal+" group by E.CodigoEmpleado) as table1) as table2;"
             var datos = await conn.query(sql)
-            //console.log(sql)
+            console.log(sql)
             return datos[0][0]
         }catch (e) {
             console.log(e)

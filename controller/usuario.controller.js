@@ -5,6 +5,7 @@ class UsuarioController {
     }
 
     static async readModelEmpleadosPanelController(usuario,sucursal){
+        console.log(sucursal)
         return await UsuarioModel.readModelEmpleadosPanelModel(usuario,sucursal)
     }
 
