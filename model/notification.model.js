@@ -17,6 +17,19 @@ class NotificationModel
         }
         return []
     }
+
+    static async updateNotificationModel(notification)
+    {
+        try {
+            var conn = await connDB().promise()
+            await conn.query("update notificacion set estado = 2 where id_notificacion = "+notification)
+            await conn.end()
+            return true
+        }catch (e) {
+            console.log(e)
+            return false
+        }
+    }
 }
 
 module.exports = NotificationModel

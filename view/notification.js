@@ -22,4 +22,21 @@ app.post('/notification',JWT.veriJwt,async function(req,res)
 })
 
 
+app.put('/update_notification',JWT.veriJwt,async function(req,res)
+{
+    try{
+        var response = await NotificationController.updateNotificationController(req.body.notification)
+
+        res.status(200).json({
+            status_code: response ? 200 : 300
+        })
+    }catch (e) {
+
+        res.status(200).json({
+            status_code: 400
+        })
+    }
+})
+
+
 module.exports = app
