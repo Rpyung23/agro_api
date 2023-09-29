@@ -32,7 +32,8 @@ class EmpleadoModel
                 "convert(date(max(HE.fechaSalida)) ,char(150)) fechaSalida,format(sum(HE.salario_ganado),2) salario_ganado from " +
                 "(select E.CodigoEmpleado,E.FK_CodigoSucursal,E.FotoEmpleado,E.NombresApellidosEmpleado from empleados as E " +
                 "where E.FK_CodigoSucursal = "+sucursal+") as table2 left join historial_empleado as HE on " +
-                "HE.FKCodigoEmpleado = table2.CodigoEmpleado and HE.is_cobrado = 0 group by table2.CodigoEmpleado,table2.FK_CodigoSucursal"
+                "HE.FKCodigoEmpleado = table2.CodigoEmpleado and HE.is_cobrado = 0 group by table2.CodigoEmpleado," +
+                "table2.FK_CodigoSucursal  order by salario_ganado desc"
 
             var datos = await conn.query(sql)
             await conn.end()
@@ -55,7 +56,7 @@ class EmpleadoModel
                 "(select E.CodigoEmpleado,E.FK_CodigoSucursal,E.FotoEmpleado,E.NombresApellidosEmpleado from empleados " +
                 "as E where E.FK_CodigoSucursal = "+sucursal+" and E.NombresApellidosEmpleado like '%"+empleado+"%') as table2 left " +
                 "join historial_empleado as HE on HE.FKCodigoEmpleado = table2.CodigoEmpleado and HE.is_cobrado = 0 " +
-                "group by table2.CodigoEmpleado,table2.FK_CodigoSucursal"
+                "group by table2.CodigoEmpleado,table2.FK_CodigoSucursal order by salario_ganado desc"
 
             console.log(sql)
 
