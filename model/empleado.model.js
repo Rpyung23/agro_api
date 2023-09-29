@@ -47,8 +47,15 @@ class EmpleadoModel
         try {
             var conn = await connDB().promise()
 
-            var sql = "select E.CodigoEmpleado,E.FK_CodigoSucursal,E.FotoEmpleado,E.NombresApellidosEmpleado " +
-                "from empleados as E where E.FK_CodigoSucursal = "+sucursal+" and E.NombresApellidosEmpleado like '%"+empleado+"%';"
+            /*var sql = "select E.CodigoEmpleado,E.FK_CodigoSucursal,E.FotoEmpleado,E.NombresApellidosEmpleado " +
+                "from empleados as E where E.FK_CodigoSucursal = "+sucursal+" and E.NombresApellidosEmpleado like '%"+empleado+"%';"*/
+
+            var sql = "select table2.*,count(HE.FKCodigoEmpleado) dia_trabajo,date(min(HE.fechaIngreso)) fechaIngreso," +
+                "date(max(HE.fechaSalida)) fechaSalida,format(sum(HE.salario_ganado),2) salario_ganado from " +
+                "(select E.CodigoEmpleado,E.FK_CodigoSucursal,E.FotoEmpleado,E.NombresApellidosEmpleado from empleados " +
+                "as E where E.FK_CodigoSucursal = "+sucursal+" and E.NombresApellidosEmpleado like '%"+empleado+"%') as table2 left " +
+                "join historial_empleado as HE on HE.FKCodigoEmpleado = table2.CodigoEmpleado and HE.is_cobrado = 0 " +
+                "group by HE.FKCodigoEmpleado,table2.FK_CodigoSucursal"
 
             console.log(sql)
 
