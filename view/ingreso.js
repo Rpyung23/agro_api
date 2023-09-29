@@ -65,7 +65,7 @@ app.post("/ingreso_fecha_sucursal",JWT.veriJwt,async function(req,res)
 app.post("/lista_ultimos_ingresos",JWT.veriJwt,async function(req,res)
 {
     try{
-        var response = await IngresoController.readListUltimoIngresoController(req.body.decoded.code_usuario)
+        var response = await IngresoController.readListUltimoIngresoController(req.body.sucursal)
 
         res.status(200).json({
             status_code: response.length > 0 ? 200 : 300 ,

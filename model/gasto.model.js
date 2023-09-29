@@ -96,7 +96,7 @@ class GastoModel {
         }
     }
 
-    static async readListUltimoGastoModel(email)
+    static async readListUltimoGastoModel(sucursal)
     {
         try {
             var conn = await connDB().promise()
@@ -104,7 +104,7 @@ class GastoModel {
                 "from gastos as G inner join usuario_admin_sucursal as USC on " +
                 "USC.FK_CodigoUsuarioAdmin = G.FK_CodigoUsuarioAdmin inner join sucursales as S " +
                 "on S.Code_Sucursal = USC.FK_Code_Sucursal where " +
-                "G.FK_CodigoUsuarioAdmin = '"+email+"' order by DateTimeRegistroGasto desc limit 5"
+                "S.Code_Sucursal = '"+sucursal+"' order by DateTimeRegistroGasto desc limit 5"
 
             var data = await conn.query(sql)
             await conn.end()

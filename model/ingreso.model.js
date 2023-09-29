@@ -101,14 +101,14 @@ class IngresoModel
         }
     }
 
-    static async readListUltimoIngresoModel(email)
+    static async readListUltimoIngresoModel(sucursal)
     {
         try {
             var conn = await connDB().promise()
             var sql = "select I.NombreIngreso,FORMAT(I.CantidadIngreso,2) CantidadIngreso,I.NotaIngreso,I.FK_Code_Sucursal," +
                 "S.NombreSucursal from ingresos as I inner join usuario_admin_sucursal as USC on " +
                 "USC.FK_CodigoUsuarioAdmin = I.FK_CodigoUsuarioAdmin inner join sucursales as S on " +
-                "S.Code_Sucursal = USC.FK_Code_Sucursal where I.FK_CodigoUsuarioAdmin = '"+email+"' " +
+                "S.Code_Sucursal = USC.FK_Code_Sucursal where S.Code_Sucursal = '"+sucursal+"' " +
                 "order by I.FechaCreacionIngreso desc limit 5"
 
             var data = await conn.query(sql)
