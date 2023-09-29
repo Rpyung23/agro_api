@@ -100,6 +100,11 @@ alter table trabajos add constraint  rel_trabajo_sucursal foreign key trabajos(F
 alter table trabajos add constraint  rel_trabajo_empresa foreign key trabajos(Fk_Empresa) references empresa(CodeEmpresa);
 alter table trabajos add constraint  rel_trabajo_estado_trabajo foreign key trabajos(FKEstadoTrabajo) references estado_trabajo(idEstadoTrabajo);
 
+create table notificacion(id_notificacion int primary key auto_increment,
+             fecha_creacion datetime default now(),fk_code_sucursal int not null,
+             detalle longtext,estado smallint(1) default 1 comment '1->activo,2 -> visto, 0->anulado');
+
+
 create table gastos_vehicular(CodeGastoVehicular int primary key auto_increment,
                               FK_PlacaVehicular varchar(50) not null,
                               ValorGastoVehicular decimal(10,2) default 0.00,
@@ -256,6 +261,27 @@ begin
     COMMIT;
 end;
 
+CREATE EVENT evento_notificacion
+    ON SCHEDULE
+        EVERY 1 DAY
+            STARTS  '2023-09-29 05:00:00'
+    COMMENT 'Este evento se ejecuta diariamente a las 5:00 AM'
+    DO
+    BEGIN
+        -- Tu lógica aquí
+        INSERT INTO notificacion (fecha_creacion, fk_code_sucursal, detalle, estado)
+        SELECT NOW(),
+               V.Fk_sucursal,
+               CONCAT('Servicio correspondiente al vehiculo ', V.PlacaVehiculo, ' en la fecha ',
+                      CONVERT(DATE(GV.FechaProximoServicio), char(150))),
+               1
+        FROM gastos_vehicular AS GV
+                 INNER JOIN
+             vehiculo AS V ON V.PlacaVehiculo = GV.FK_PlacaVehicular
+                 INNER JOIN
+             sucursales AS S ON S.Code_Sucursal = V.Fk_sucursal
+        WHERE DATE(GV.FechaProximoServicio) = DATE(NOW());
+    END ;
 
 use agro;
 select * from sucursales;
