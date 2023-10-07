@@ -12,10 +12,10 @@ app.post('/panel_usuario_empresa',JWT.veriJwt,async function (req, res)
     try {
 
         var gastoCinco = await GastoController.readUltimo5GastoUsuarioController(req.body.decoded.empresa,
-            req.body.decoded.code_usuario,req.body.sucursal)
+            req.body.decoded.code_usuario,req.body.sucursal,req.body.semana)
 
         var ingresoCinco = await IngresoController.readUltimo5IngresoUsuarioController(req.body.decoded.empresa,
-            req.body.decoded.code_usuario,req.body.sucursal)
+            req.body.decoded.code_usuario,req.body.sucursal,req.body.semana)
 
         var gastoPanel = await GastoController.readGastoUsuarioController(req.body.decoded.empresa,
             req.body.decoded.code_usuario,req.body.sucursal,req.body.semana)

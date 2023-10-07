@@ -1,9 +1,9 @@
 const IngresoModel = require('../model/ingreso.model')
 class IngresoController
 {
-    static async readUltimo5IngresoUsuarioController(empresa,usuario,sucursal)
+    static async readUltimo5IngresoUsuarioController(empresa,usuario,sucursal,semana)
     {
-       return await IngresoModel.readUltimo5IngresoUsuarioModel(empresa,usuario,sucursal)
+       return await IngresoModel.readUltimo5IngresoUsuarioModel(empresa,usuario,sucursal,semana)
     }
 
     static async readIngresoUsuarioController(empresa,usuario,sucursal,semana)

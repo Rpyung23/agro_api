@@ -1,9 +1,9 @@
 const GastoModel = require('../model/gasto.model')
 class GastoController
 {
-    static async readUltimo5GastoUsuarioController(empresa,usuario,sucursal)
+    static async readUltimo5GastoUsuarioController(empresa,usuario,sucursal,semana)
     {
-       return await GastoModel.readUltimo5GastoUsuarioModel(empresa,usuario,sucursal)
+       return await GastoModel.readUltimo5GastoUsuarioModel(empresa,usuario,sucursal,semana)
     }
 
     static async readGastoUsuarioController(empresa,usuario,sucursal,semana)

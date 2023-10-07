@@ -1,12 +1,12 @@
 const connDB = require('../config/conn')
 
 class GastoModel {
-    static async readUltimo5GastoUsuarioModel(empresa, usuario,sucursal) {
+    static async readUltimo5GastoUsuarioModel(empresa, usuario,sucursal,semana) {
         try {
             var conn = await connDB().promise()
 
             var sql = "select FORMAT(CAST(sum(table1.gasto) AS DECIMAL(10, 2)), 2) as gasto from (select G.cantidad as gasto from gastos as G " +
-                "where FK_CodigoUsuarioAdmin = '" + usuario + "' and FK_CodeEmpresa = '" + empresa + "' and FK_CodeSucursal = "+sucursal+" order by G.DateTimeRegistroGasto desc limit 5) as table1;"
+                "where FK_CodigoUsuarioAdmin = '" + usuario + "' and week(DateTimeRegistroGasto) = "+semana+" and FK_CodeEmpresa = '" + empresa + "' and FK_CodeSucursal = "+sucursal+" order by G.DateTimeRegistroGasto desc limit 5) as table1;"
 
             /*var sql = "select FORMAT(CAST(sum(G.cantidad) AS DECIMAL(10, 2)), 2) as gasto from gastos as G " +
                 "where FK_CodigoUsuarioAdmin = '"+usuario+"' and FK_CodeEmpresa = '"+empresa+"' order by G.DateTimeRegistroGasto desc limit 5;"*/
