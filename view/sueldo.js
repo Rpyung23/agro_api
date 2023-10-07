@@ -30,7 +30,7 @@ app.put("/generarCobro",JWT.veriJwt,async function(req,res)
 {
 
     try{
-        var response = await SueldoController.generarCobroController(req.body.empleado)
+        var response = await SueldoController.generarCobroController(req.body.empleado,req.body.decoded.code_usuario)
 
         res.status(200).json({
             status_code : response  ? 200 : 400,

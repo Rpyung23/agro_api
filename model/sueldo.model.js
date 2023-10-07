@@ -28,11 +28,11 @@ class SueldoModel
         }
     }
 
-    static async generarCobroModel(empleado)
+    static async generarCobroModel(empleado,admin)
     {
         try {
             var conn = await connDB().promise()
-            var sql = "update historial_empleado set is_cobrado = 1 where FKCodigoEmpleado = '"+empleado+"'"
+            var sql = "update historial_empleado set is_cobrado = 1,FKCodigoUsuarioAdmin = '"+admin+"'where FKCodigoEmpleado = '"+empleado+"'"
             console.log(sql)
             await conn.query(sql)
             await conn.end()

@@ -133,6 +133,7 @@ alter table ingresos add constraint rel_ingresos_sucursal foreign key ingresos(F
 
 /*************************************************************************************************************************/
 
+alter table historial_empleado add FKCodigoUsuarioAdmin varchar(50) comment 'usuario quien autoriza el pago';
 /***** SELECT ***/
 select * from vehiculo;
 insert into gastos_vehicular(FK_PlacaVehicular, ValorGastoVehicular, FechaProximoServicio, NumeroTicketGastoVehicular,
@@ -282,6 +283,29 @@ CREATE EVENT evento_notificacion
              sucursales AS S ON S.Code_Sucursal = V.Fk_sucursal
         WHERE DATE(GV.FechaProximoServicio) = DATE(NOW());
     END ;
+
+DELIMITER //
+
+CREATE TRIGGER after_update_historial_empleado_sueldo
+AFTER UPDATE ON historial_empleado
+FOR EACH ROW
+BEGIN
+    if new.is_cobrado = 1 then
+        insert into gastos(NombreGasto, FK_CodigoProveedor, cantidad, CodigoFactura,
+                   NotaFactura, QRealizo,
+                   DateTimeRegistroGasto, FK_CodeEmpresa,
+                   FK_CodigoUsuarioAdmin, FK_CodeSucursal) VALUES ('PAGO NOMINA','XXXXXXXXX',1,UNIX_TIMESTAMP(now()),
+                   concat('PAGO DE SUELDO DIA',' ',date(new.fechaSalida)),
+                   'SISTEMA AUTOMATICO',now(),(select usuario_admin.FK_CodeEmpresa from usuario_admin
+                   where CodigoUsuarioAdmin = new.FKCodigoUsuarioAdmin),new.FKCodigoUsuarioAdmin,(select FK_CodigoSucursal from empleados
+                   where CodigoEmpleado = new.FKCodigoEmpleado));
+    end if;
+END;
+//
+
+DELIMITER ;
+
+
 
 use agro;
 select * from sucursales;

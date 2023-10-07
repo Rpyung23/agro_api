@@ -6,8 +6,8 @@ class SueldoController
         return SueldoModel.readSueldoModel(sucursal,admin)
     }
 
-    static async generarCobroController(empleado){
-        return SueldoModel.generarCobroModel(empleado)
+    static async generarCobroController(empleado,admin){
+        return SueldoModel.generarCobroModel(empleado,admin)
     }
 }
 
