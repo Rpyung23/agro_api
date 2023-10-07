@@ -18,10 +18,10 @@ app.post('/panel_usuario_empresa',JWT.veriJwt,async function (req, res)
             req.body.decoded.code_usuario,req.body.sucursal)
 
         var gastoPanel = await GastoController.readGastoUsuarioController(req.body.decoded.empresa,
-            req.body.decoded.code_usuario,req.body.sucursal)
+            req.body.decoded.code_usuario,req.body.sucursal,req.body.semana)
 
         var ingresoPanel = await IngresoController.readIngresoUsuarioController(req.body.decoded.empresa,
-            req.body.decoded.code_usuario,req.body.sucursal)
+            req.body.decoded.code_usuario,req.body.sucursal,req.body.semana)
 
         var trabajos = await  TrabajoController.totalTodoTipoTrabajoEmpresaControlle(req.body.decoded.empresa,
             req.body.decoded.code_usuario,req.body.sucursal)

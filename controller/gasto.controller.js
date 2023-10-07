@@ -6,9 +6,9 @@ class GastoController
        return await GastoModel.readUltimo5GastoUsuarioModel(empresa,usuario,sucursal)
     }
 
-    static async readGastoUsuarioController(empresa,usuario,sucursal)
+    static async readGastoUsuarioController(empresa,usuario,sucursal,semana)
     {
-        return await GastoModel.readGastoUsuarioModel(empresa,usuario,sucursal)
+        return await GastoModel.readGastoUsuarioModel(empresa,usuario,sucursal,semana)
     }
 
     static async insertGastoUsuarioController(NombreGasto, FK_CodigoProveedor, cantidad, CodigoFactura, NotaFactura, QRealizo,

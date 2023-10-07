@@ -18,11 +18,11 @@ class GastoModel {
         }
     }
 
-    static async readGastoUsuarioModel(empresa, usuario,sucursal) {
+    static async readGastoUsuarioModel(empresa, usuario,sucursal,semana) {
         try {
             var conn = await connDB().promise()
             var sql = "select FORMAT(CAST(sum(G.cantidad) AS DECIMAL(10, 2)), 2) as gasto from gastos as G " +
-                "where FK_CodigoUsuarioAdmin = '" + usuario + "' and FK_CodeEmpresa = '" + empresa + "' and FK_CodeSucursal = "+sucursal+" order by G.DateTimeRegistroGasto desc;"
+                "where FK_CodigoUsuarioAdmin = '" + usuario + "' and week(date(G.DateTimeRegistroGasto)) = "+semana+" and FK_CodeEmpresa = '" + empresa + "' and FK_CodeSucursal = "+sucursal+" order by G.DateTimeRegistroGasto desc;"
             //console.log(sql)
             var datos = await conn.query(sql)
             return datos[0][0].gasto

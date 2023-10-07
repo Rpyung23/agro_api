@@ -6,9 +6,9 @@ class IngresoController
        return await IngresoModel.readUltimo5IngresoUsuarioModel(empresa,usuario,sucursal)
     }
 
-    static async readIngresoUsuarioController(empresa,usuario,sucursal)
+    static async readIngresoUsuarioController(empresa,usuario,sucursal,semana)
     {
-        return await IngresoModel.readIngresoUsuarioModel(empresa,usuario,sucursal)
+        return await IngresoModel.readIngresoUsuarioModel(empresa,usuario,sucursal,semana)
     }
 
     static async insertIngresoController(NombreIngreso,usuario_code,sucursal_code,empresa,name_cliente,cantidad,nota,foto)
