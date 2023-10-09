@@ -15,7 +15,7 @@ app.post('/loginUsuario',async function (req, res)
             status_code: datos == null ? 300 : 200,
             datos: datos == null ? null : {
                 nombres:datos.NombreApellidosAdmin,
-                token: Jwt.createJwt(datos.FK_CodeEmpresa,datos.CodigoUsuarioAdmin)
+                token: Jwt.createJwt(datos.FK_CodeEmpresa,datos.CodigoUsuarioAdmin,datos.NombreApellidosAdmin)
             },
             msm: datos == null ? 'Usuario No existe' : 'Usuario encontrada con éxito.'
         })

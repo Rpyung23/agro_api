@@ -2,10 +2,10 @@ const jwt = require('jsonwebtoken');
 const {JWT_SECRET_KEY} = require("../config/env");
 const {verify} = require("jsonwebtoken");
 class Jwt {
-    static createJwt(fk_empresa,usuario)
+    static createJwt(fk_empresa,usuario,NombreApellidosAdmin)
     {
         try{
-            var token = jwt.sign({ empresa: fk_empresa,code_usuario: usuario}, JWT_SECRET_KEY(),{expiresIn:'7d'});
+            var token = jwt.sign({ empresa: fk_empresa,code_usuario: usuario,NombreApellidosAdmin:NombreApellidosAdmin}, JWT_SECRET_KEY(),{expiresIn:'7d'});
             return token
         }catch (e) {
             console.log(e)

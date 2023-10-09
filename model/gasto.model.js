@@ -121,7 +121,7 @@ class GastoModel {
         try {
             var conn = await connDB().promise()
             var sql = "select convert(date(G.DateTimeRegistroGasto),char(150)) DateTimeRegistroGasto,G.NombreGasto," +
-                "G.NotaFactura,G.QRealizo,G.cantidad from gastos as G where G.FK_CodeSucursal = "+sucursal+" and date(G.DateTimeRegistroGasto ) " +
+                "G.NotaFactura,G.QRealizo,G.cantidad,format(G.cantidad,2) cantidad_string from gastos as G where G.FK_CodeSucursal = "+sucursal+" and date(G.DateTimeRegistroGasto ) " +
                 "between date(CONCAT(YEAR(NOW()), '-', LPAD(MONTH(DATE_ADD(STR_TO_DATE(CONCAT(YEAR(NOW()), '-01-01'), '%Y-%m-%d'), " +
                 "INTERVAL WEEK(NOW()) - 1 WEEK)), 2, '0'), '-01')) and date(now())"
             var data = await conn.query(sql)
