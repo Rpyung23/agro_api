@@ -25,8 +25,10 @@ class TrabajoController
         return await TrabajosModel.readTrabajoUsuariosModel(codeUsuario)
     }
 
-    static async updateTrabajoController(idTrabajo,NameTrabajo,Fk_Sucursal,FKEstadoTrabajo,fechaInicio,fechaLimite,fechaFin){
-        return await TrabajosModel.updateTrabajoModel(idTrabajo,NameTrabajo,Fk_Sucursal,FKEstadoTrabajo,fechaInicio,fechaLimite,fechaFin)
+    static async updateTrabajoController(idTrabajo,NameTrabajo,Fk_Sucursal,FKEstadoTrabajo,fechaInicio,
+                                         fechaLimite,fechaFin,nota){
+        return await TrabajosModel.updateTrabajoModel(idTrabajo,NameTrabajo,Fk_Sucursal,FKEstadoTrabajo,
+            fechaInicio,fechaLimite,fechaFin,nota)
     }
 
 }

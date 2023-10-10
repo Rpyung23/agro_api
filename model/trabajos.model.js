@@ -94,12 +94,12 @@ class TrabajosModel
     }
 
 
-    static async updateTrabajoModel(idTrabajo,NameTrabajo,Fk_Sucursal,FKEstadoTrabajo,fechaInicio,fechaLimite,fechaFin)
+    static async updateTrabajoModel(idTrabajo,NameTrabajo,Fk_Sucursal,FKEstadoTrabajo,fechaInicio,fechaLimite,fechaFin,nota)
     {
         try{
             var conn = await connDB().promise()
             var sql = "update trabajos set NameTrabajo = '"+NameTrabajo+"',Fk_Sucursal= "+Fk_Sucursal+",FKEstadoTrabajo="+FKEstadoTrabajo+"," +
-                "fechaInicio='"+fechaInicio+"',fechaLimite='"+fechaLimite+"',fechaFin='"+fechaFin+"' where idTrabajo = "+idTrabajo
+                "fechaInicio='"+fechaInicio+"',fechaLimite='"+fechaLimite+"',notaTrabajo='"+nota+"',fechaFin='"+fechaFin+"' where idTrabajo = "+idTrabajo
             console.log(sql)
             await conn.query(sql)
             await conn.end()

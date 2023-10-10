@@ -95,7 +95,8 @@ app.put('/update_trabajo',JWT.veriJwt,async function(req,res)
 
     try {
         var response = await TrabajoController.updateTrabajoController(req.body.idTrabajo,req.body.NameTrabajo,
-            req.body.Fk_Sucursal,req.body.FKEstadoTrabajo,req.body.fechaInicio,req.body.fechaLimite,req.body.fechaFin)
+            req.body.Fk_Sucursal,req.body.FKEstadoTrabajo,req.body.fechaInicio,
+            req.body.fechaLimite,req.body.fechaFin,req.body.nota)
 
         res.status(200).json({
             status_code: response ?  200 : 400,
