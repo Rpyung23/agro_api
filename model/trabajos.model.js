@@ -64,8 +64,9 @@ class TrabajosModel
     {
         try{
             var conn = await connDB().promise()
-            var sql = "select T.idTrabajo,T.NameTrabajo,T.fotoTrabajo,T.fechaInicio,T.fechaFin," +
-                "T.fechaLimite,T.notaTrabajo,T.FKEstadoTrabajo from trabajos as T where T.idTrabajo = "+trabajo
+            var sql = "select T.idTrabajo,T.NameTrabajo,T.fotoTrabajo,convert(T.fechaInicio,char(150)) fechaInicio," +
+                "convert(T.fechaFin,char(150)) fechaFin," +
+                "convert(T.fechaLimite,char(150)) fechaLimite,T.notaTrabajo,T.FKEstadoTrabajo from trabajos as T where T.idTrabajo = "+trabajo
             var datos = await conn.query(sql)
             await conn.end()
             return datos[0]
